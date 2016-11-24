@@ -1,4 +1,4 @@
-package fr.beapp.utils;
+package fr.beapp.utils.io;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,6 +14,9 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+
+import fr.beapp.utils.BaseRobolectric;
+import fr.beapp.utils.io.IOUtils;
 
 public class IOUtilsTest extends BaseRobolectric {
 

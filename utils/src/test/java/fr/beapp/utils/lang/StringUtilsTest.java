@@ -1,9 +1,13 @@
-package fr.beapp.utils;
+package fr.beapp.utils.lang;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
+
+import fr.beapp.utils.TestUtils;
+import fr.beapp.utils.lang.StringUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -134,7 +138,7 @@ public class StringUtilsTest {
 
 	@Test
 	public void testCommaDelimitedStringToSet() throws Exception {
-		assertEquals(TestUtils.newTree(), StringUtils.commaDelimitedStringToSet(null));
+		Assert.assertEquals(TestUtils.newTree(), StringUtils.commaDelimitedStringToSet(null));
 		assertEquals(TestUtils.newTree(), StringUtils.commaDelimitedStringToSet(""));
 		assertEquals(TestUtils.newTree(), StringUtils.commaDelimitedStringToSet(" "));
 		assertEquals(TestUtils.newTree("abc"), StringUtils.commaDelimitedStringToSet("abc"));

@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
-import fr.beapp.utils.ComparatorUtils;
+import fr.beapp.utils.lang.ComparatorUtils;
 
 public class MultiValueMapTest {
 

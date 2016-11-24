@@ -1,4 +1,4 @@
-package fr.beapp.utils;
+package fr.beapp.utils.io;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

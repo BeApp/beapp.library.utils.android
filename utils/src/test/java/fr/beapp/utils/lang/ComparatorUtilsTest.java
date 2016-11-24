@@ -1,9 +1,9 @@
-package fr.beapp.utils;
+package fr.beapp.utils.lang;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import fr.beapp.utils.ComparatorUtils;
+import fr.beapp.utils.lang.ComparatorUtils;
 
 public class ComparatorUtilsTest {
 

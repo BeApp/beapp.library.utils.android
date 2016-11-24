@@ -8,7 +8,7 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 
 import fr.beapp.logger.Logger;
-import fr.beapp.utils.StringUtils;
+import fr.beapp.utils.lang.StringUtils;
 
 public class ColorUtils {
 

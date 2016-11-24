@@ -1,4 +1,4 @@
-package fr.beapp.utils;
+package fr.beapp.utils.lang;
 
 public class ComparatorUtils {
 

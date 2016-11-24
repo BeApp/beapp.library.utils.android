@@ -1,6 +1,9 @@
-package fr.beapp.utils;
+package fr.beapp.utils.lang;
 
 import org.junit.Test;
+
+import fr.beapp.utils.BaseRobolectric;
+import fr.beapp.utils.lang.StringValidationUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
