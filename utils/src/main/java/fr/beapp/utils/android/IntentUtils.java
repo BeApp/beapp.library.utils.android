@@ -16,14 +16,17 @@ import java.util.Arrays;
 import java.util.Locale;
 
 import fr.beapp.logger.Logger;
-import fr.beapp.utils.ArrayUtils;
-import fr.beapp.utils.StringUtils;
-import fr.beapp.utils.StringValidationUtils;
+import fr.beapp.utils.collection.ArrayUtils;
+import fr.beapp.utils.lang.StringUtils;
+import fr.beapp.utils.lang.StringValidationUtils;
 
 /**
  * Inspired from <a href="https://developer.android.com/guide/components/intents-common.html">Official Common Intents</a> documentation.
  */
 public class IntentUtils {
+
+	private IntentUtils() {
+	}
 
 	/**
 	 * Launch phone application with pre-filled phone number, ready to call.

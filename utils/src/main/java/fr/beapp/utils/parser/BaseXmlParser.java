@@ -23,8 +23,8 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
 import fr.beapp.logger.Logger;
-import fr.beapp.utils.IOUtils;
-import fr.beapp.utils.StringUtils;
+import fr.beapp.utils.io.IOUtils;
+import fr.beapp.utils.lang.StringUtils;
 
 public abstract class BaseXmlParser {
 

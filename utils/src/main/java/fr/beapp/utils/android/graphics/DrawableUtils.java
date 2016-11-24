@@ -1,4 +1,4 @@
-package fr.beapp.utils.graphics;
+package fr.beapp.utils.android.graphics;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -11,6 +11,9 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 
 public class DrawableUtils {
+
+	private DrawableUtils() {
+	}
 
 	/**
 	 * Retrieve a drawable. This method handles changes of API.

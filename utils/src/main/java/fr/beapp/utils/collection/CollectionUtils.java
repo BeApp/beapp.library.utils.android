@@ -1,8 +1,11 @@
-package fr.beapp.utils;
+package fr.beapp.utils.collection;
 
 import java.util.Collection;
 
 public class CollectionUtils {
+
+	private CollectionUtils() {
+	}
 
 	/**
 	 * Null-safe check if the specified collection is empty.

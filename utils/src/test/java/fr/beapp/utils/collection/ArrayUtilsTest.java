@@ -1,6 +1,9 @@
-package fr.beapp.utils;
+package fr.beapp.utils.collection;
 
 import org.junit.Test;
+
+import fr.beapp.utils.BaseRobolectric;
+import fr.beapp.utils.collection.ArrayUtils;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

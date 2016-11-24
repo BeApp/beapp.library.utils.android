@@ -1,12 +1,8 @@
-package fr.beapp.utils.graphics;
+package fr.beapp.utils.android.graphics;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -16,20 +12,30 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.media.ExifInterface;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.view.View;
+import android.view.ViewGroup;
 
 import fr.beapp.logger.Logger;
+import fr.beapp.utils.android.ViewUtils;
 
 public class BitmapUtils {
+
+	private BitmapUtils() {
+	}
 
 	/**
 	 * Unconditionally recycle a {@link Bitmap}.
 	 * <p>
 	 * Equivalent to {@link Bitmap#recycle()}, except any exceptions will be ignored.
 	 * This is typically used in finally blocks.
+	 *
+	 * @param bitmap The bitmap to recycle
 	 */
-	public static void recycleQuietly(Bitmap bitmap) {
+	public static void recycleQuietly(@Nullable Bitmap bitmap) {
 		try {
-			if (bitmap != null) {
+			if (bitmap != null && !bitmap.isRecycled()) {
 				bitmap.recycle();
 			}
 		} catch (Exception ignored) {
@@ -37,23 +43,47 @@ public class BitmapUtils {
 	}
 
 	/**
-	 * Return a round copy of the given bitmap with a border.
+	 * Resize the given bitmap with a ratio to apply on both width and height.
+	 * <p/>
+	 * This method will generate a new bitmap.
+	 * <p/>
+	 * The develop MAY wan to recycle the source bitmap if it's no longer used.
+	 *
+	 * @param source the {@link Bitmap} to resize
+	 * @param ratio  the ratio to apply on his size
+	 * @return the resized bitmap, or <code>null</code> if the source was <code>null</code>
+	 */
+	@Nullable
+	public static Bitmap resize(@Nullable Bitmap source, float ratio) {
+		if (source == null)
+			return null;
+
+		int width = Math.round(ratio * source.getWidth());
+		int height = Math.round(ratio * source.getHeight());
+
+		return Bitmap.createScaledBitmap(source, width, height, true);
+	}
+
+	/**
+	 * Return a round copy of the given bitmap with an optional border.
 	 * <p>
 	 * If border size <= 0, the output image will be a round copy of the input, without border.
 	 * <p>
-	 * Don't forget to recycle both source and output bitmaps when you're done with it.
+	 * This method will generate a new bitmap.
+	 * <p/>
+	 * The develop MAY wan to recycle the source bitmap if it's no longer used.
 	 *
 	 * @param source      the bitmap to make a copy of
 	 * @param borderWidth width of the border
 	 * @param borderColor color of the border
-	 * @return a new instance of Bitmap
+	 * @return a round copy of the source Bitmap
 	 */
-	public static Bitmap round(Bitmap source, int borderWidth, int borderColor) {
+	@Nullable
+	public static Bitmap round(@Nullable Bitmap source, int borderWidth, int borderColor) {
 		if (source == null)
 			return null;
-		if (borderWidth < 0)
-			borderWidth = 0;
 
+		borderWidth = Math.max(0, borderWidth);
 		int size = Math.min(source.getWidth(), source.getHeight());
 
 		Bitmap output = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
@@ -78,20 +108,22 @@ public class BitmapUtils {
 	 * If border size is <= 0, the output image will be a round-rect copy of the input, without border.
 	 * If border radius is <= 0, the output image will be handled as a rectangle.
 	 * <p>
-	 * Don't forget to recycle both source and output bitmaps when you're done with it.
+	 * This method will generate a new bitmap.
+	 * <p/>
+	 * The develop MAY wan to recycle the source bitmap if it's no longer used.
 	 *
 	 * @param source       the bitmap to make a copy of
 	 * @param borderWidth  width of the border
 	 * @param borderColor  color of the border
 	 * @param borderRadius radius of the border
-	 * @return a new instance of Bitmap
+	 * @return a rounded copy of the source Bitmap
 	 */
-	public static Bitmap roundRect(Bitmap source, int borderWidth, int borderColor, int borderRadius) {
+	@Nullable
+	public static Bitmap roundRect(@Nullable Bitmap source, int borderWidth, int borderColor, int borderRadius) {
 		if (source == null)
 			return null;
-		if (borderRadius < 0)
-			borderRadius = 0;
 
+		borderWidth = Math.max(0, borderWidth);
 		int width = source.getWidth();
 		int height = source.getHeight();
 		RectF rect = new RectF(0f, 0f, width, height);
@@ -114,7 +146,24 @@ public class BitmapUtils {
 		return output;
 	}
 
-	public static Bitmap overlay(Bitmap source, Bitmap overlay) {
+	/**
+	 * Overlay two bitmap on a new one.
+	 * <p/>
+	 * The overlay bitmap will be center cropped on the source bitmap.
+	 * <p/>
+	 * If the source bitmap is <code>null</code>, <code>null</code> will be returned
+	 * If the overlay bitmap is <code>null</code>, the original source bitmap will be returned.
+	 * <p/>
+	 * This method will generate a new bitmap.
+	 * <p/>
+	 * The develop MAY wan to recycle the source bitmap if it's no longer used.
+	 *
+	 * @param source  the source bitmap
+	 * @param overlay the bitmap to overlay on the source
+	 * @return a new bitmap with the source and overlay merged, or <code>null</code> if source was <code>null</code>
+	 */
+	@Nullable
+	public static Bitmap overlay(@Nullable Bitmap source, @Nullable Bitmap overlay) {
 		if (source == null)
 			return null;
 		if (overlay == null)
@@ -134,6 +183,7 @@ public class BitmapUtils {
 		return output;
 	}
 
+	@NonNull
 	public static Rect calculateCroppedSrcRect(int srcW, int srcH, int dstW, int dstH) {
 		final float scale = Math.min(
 				(float) srcW / dstW,
@@ -148,44 +198,11 @@ public class BitmapUtils {
 	}
 
 	/**
-	 * TODO Debug this one
-	 */
-	public static Bitmap drawTextToBitmap(Context context, Bitmap bitmap, String text) {
-		Resources resources = context.getResources();
-		Bitmap.Config bitmapConfig = bitmap.getConfig();
-		if (bitmapConfig == null) {
-			bitmapConfig = Bitmap.Config.ARGB_8888;
-		}
-
-		Bitmap bitmapWithText = bitmap.copy(bitmapConfig, true);
-		Canvas canvas = new Canvas(bitmapWithText);
-		Paint textBackground = new Paint();
-		textBackground.setColor(Color.BLACK);
-
-		Rect bounds = new Rect();
-		textBackground.setAlpha(130);
-		canvas.drawRect(0, bitmap.getHeight() - 100, bitmap.getWidth(), bitmap.getHeight() - 20, textBackground);
-		Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-
-		if (text != null) {
-			float scale = resources.getDisplayMetrics().density;
-
-			paint.setColor(Color.WHITE);
-			paint.setTextSize((int) (14 * scale));
-			paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
-			paint.getTextBounds(text, 0, text.length(), bounds);
-			int x = bounds.height();
-			int y = bitmap.getHeight() - bounds.height() - 10;
-			canvas.drawText(text, x, y, paint);
-		}
-
-		return bitmapWithText;
-	}
-
-	/**
 	 * Return a new bitmap with orientation fixed. This is really useful to properly handle pictures taken on Samsung devices
 	 * <p>
-	 * The input bitmap should be recycle.
+	 * This method will generate a new bitmap.
+	 * <p/>
+	 * The develop MAY wan to recycle the source bitmap if it's no longer used.
 	 *
 	 * @param bitmap the bitmap to rotate
 	 * @param exif   the exit associated to this bitmap
@@ -216,15 +233,71 @@ public class BitmapUtils {
 		return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, true);
 	}
 
-	public static Bitmap applyColor(Bitmap source, @ColorInt int color) {
-		ColorFilter colorFilter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+	/**
+	 * Apply a color overlay on the given bitmap using <a href="http://ssp.impulsetrain.com/porterduff.html">SRC_ATOP PorterDuff strategy</a>.
+	 * <p/>
+	 * This method will generate a new bitmap.
+	 * <p/>
+	 * The develop MAY wan to recycle the source bitmap if it's no longer used.
+	 *
+	 * @param source the bitmap on which to apply the color
+	 * @param color  the color to apply
+	 * @return a new bitmap with the color applied, or <code>null</code> if source was <code>null</code>
+	 */
+	@Nullable
+	public static Bitmap applyColor(@Nullable Bitmap source, @ColorInt int color) {
+		if (source == null)
+			return null;
 
 		Paint paint = new Paint();
-		paint.setColorFilter(colorFilter);
+		paint.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP));
 
 		Bitmap coloredBitmap = Bitmap.createBitmap(source.getWidth(), source.getHeight(), source.getConfig());
 		Canvas canvas = new Canvas(coloredBitmap);
 		canvas.drawBitmap(source, 0, 0, paint);
 		return coloredBitmap;
+	}
+
+	/**
+	 * Generate a {@link Bitmap} from a given {@link View}.
+	 *
+	 * @param view the View to convert to Bitmap
+	 * @return the generated Bitmap or <code>null</code> if the source Bitmap was <code>null</code>
+	 */
+	@Nullable
+	public static Bitmap fromView(@Nullable View view) {
+		if (view == null)
+			return null;
+
+		if (view.getMeasuredWidth() == 0 || view.getMeasuredHeight() == 0) {
+			ViewUtils.forceMeasure(view);
+		}
+
+		int marginLeft = 0;
+		int marginTop = 0;
+		int marginRight = 0;
+		int marginBottom = 0;
+
+		ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+		if (layoutParams instanceof ViewGroup.MarginLayoutParams) {
+			ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) layoutParams;
+			marginLeft = marginLayoutParams.leftMargin;
+			marginTop = marginLayoutParams.topMargin;
+			marginRight = marginLayoutParams.rightMargin;
+			marginBottom = marginLayoutParams.bottomMargin;
+		}
+
+		try {
+			Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth() + marginLeft + marginRight,
+					view.getMeasuredHeight() + marginTop + marginBottom,
+					Bitmap.Config.ARGB_8888);
+			Canvas canvas = new Canvas(bitmap);
+			canvas.translate(marginLeft, marginTop);
+			view.draw(canvas);
+			view.setDrawingCacheEnabled(true);
+			return bitmap;
+		} finally {
+			view.destroyDrawingCache();
+		}
 	}
 }

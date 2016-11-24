@@ -1,4 +1,4 @@
-package fr.beapp.utils.graphics;
+package fr.beapp.utils.android.graphics;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -6,6 +6,9 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
 public class UiUtils {
+
+	private UiUtils() {
+	}
 
 	/**
 	 * Return the ActionBar's height in pixel.

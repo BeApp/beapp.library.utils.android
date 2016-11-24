@@ -1,9 +1,12 @@
-package fr.beapp.utils;
+package fr.beapp.utils.lang;
 
 import android.support.annotation.Nullable;
 import android.util.Patterns;
 
 public class StringValidationUtils {
+
+	private StringValidationUtils() {
+	}
 
 	/**
 	 * Check that the given mail is valid.
