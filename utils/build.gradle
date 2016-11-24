@@ -33,7 +33,7 @@ ext {
     libraryVersion = '1.0'
     libraryPackaging = 'aar'
 
-    libraryDescription = 'An library provided multiple utils classes'
+    libraryDescription = 'A library providing multiple utils classes'
 
     siteUrl = 'https://bitbucket.org/beappers/beapp.utils.andro'
     gitUrl = 'git@bitbucket.org:beappers/beapp.utils.andro.git'
