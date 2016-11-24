@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import fr.beapp.utils.graphics.ColorUtils;
-import fr.beapp.utils.graphics.DrawableUtils;
+import fr.beapp.utils.android.graphics.ColorUtils;
+import fr.beapp.utils.android.graphics.DrawableUtils;
 
 public class ViewUtils {
 

@@ -1,4 +1,4 @@
-package fr.beapp.utils;
+package fr.beapp.utils.android;
 
 import android.location.Location;
 

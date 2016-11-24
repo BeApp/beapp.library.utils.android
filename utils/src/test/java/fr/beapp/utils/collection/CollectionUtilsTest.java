@@ -1,7 +1,8 @@
-package fr.beapp.utils;
+package fr.beapp.utils.collection;
 
 import org.junit.Test;
 
+import fr.beapp.utils.BaseRobolectric;
 import fr.beapp.utils.collection.CollectionUtils;
 
 import static java.util.Arrays.asList;

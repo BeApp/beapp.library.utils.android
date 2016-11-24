@@ -1,4 +1,4 @@
-package fr.beapp.utils.graphics;
+package fr.beapp.utils.android.graphics;
 
 public enum SelectorPressedType {
 	BRIGHTER, DARKER

@@ -1,4 +1,4 @@
-package fr.beapp.utils.graphics;
+package fr.beapp.utils.android.graphics;
 
 import android.annotation.TargetApi;
 import android.content.Context;
