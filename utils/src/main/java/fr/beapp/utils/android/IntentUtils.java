@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 import fr.beapp.logger.Logger;
-import fr.beapp.utils.ArrayUtils;
+import fr.beapp.utils.collection.ArrayUtils;
 import fr.beapp.utils.StringUtils;
 import fr.beapp.utils.StringValidationUtils;
 

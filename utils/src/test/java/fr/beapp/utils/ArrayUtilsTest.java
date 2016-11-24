@@ -2,6 +2,8 @@ package fr.beapp.utils;
 
 import org.junit.Test;
 
+import fr.beapp.utils.collection.ArrayUtils;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 

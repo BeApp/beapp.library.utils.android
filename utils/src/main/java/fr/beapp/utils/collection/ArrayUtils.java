@@ -1,4 +1,4 @@
-package fr.beapp.utils;
+package fr.beapp.utils.collection;
 
 public class ArrayUtils {
 

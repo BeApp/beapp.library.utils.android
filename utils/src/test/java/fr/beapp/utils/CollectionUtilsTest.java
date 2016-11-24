@@ -2,6 +2,8 @@ package fr.beapp.utils;
 
 import org.junit.Test;
 
+import fr.beapp.utils.collection.CollectionUtils;
+
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
