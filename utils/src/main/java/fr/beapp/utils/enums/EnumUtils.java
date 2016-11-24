@@ -43,4 +43,25 @@ public class EnumUtils {
 		return defaultValue;
 	}
 
+	/**
+	 * Retrieve an {@link Enum} value according to his name.
+	 *
+	 * @param clazz        The class of {@link Enum} to search names into
+	 * @param name         the {@link Enum} name to search in items
+	 * @param defaultValue the value to return if no match was found
+	 * @param <E>          the type of the Enum value to search
+	 * @return the item value if found, <code>defaultValue</code> otherwise
+	 */
+	@Nullable
+	public static <E extends Enum<E>> E fromName(@NonNull Class<E> clazz, @Nullable String name, @Nullable E defaultValue) {
+		if (name == null)
+			return defaultValue;
+
+		try {
+			return Enum.valueOf(clazz, name);
+		} catch (Exception ignored) {
+		}
+		return defaultValue;
+	}
+
 }
