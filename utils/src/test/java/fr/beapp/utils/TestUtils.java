@@ -1,8 +1,10 @@
 package fr.beapp.utils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
@@ -17,7 +19,13 @@ public class TestUtils {
 	}
 
 	public static File resourceFile(String resourcePath) throws Exception {
-		return new File(extractResourcesFolder(), resourcePath);
+//		return new File(extractResourcesFolder(), resourcePath);
+
+		URL resource = TestUtils.class.getResource("/" + resourcePath);
+		if (resource == null)
+			throw new FileNotFoundException("Couldn't find resource " + resourcePath);
+
+		return new File(resource.toString().replace("file:", ""));
 	}
 
 	/**
