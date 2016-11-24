@@ -157,4 +157,15 @@ public class ViewUtils {
 		}
 	}
 
+	/**
+	 * Force a view to measure itself
+	 *
+	 * @param view the view to measure
+	 */
+	public static void forceMeasure(@NonNull View view) {
+		int spec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+		view.measure(spec, spec);
+		view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+	}
+
 }

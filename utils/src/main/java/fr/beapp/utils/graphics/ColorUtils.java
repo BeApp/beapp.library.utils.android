@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
+import android.support.annotation.Nullable;
 
 import fr.beapp.logger.Logger;
 import fr.beapp.utils.StringUtils;
@@ -38,7 +39,7 @@ public class ColorUtils {
 	 * @return a color value corresponding to the given color string ,or 0 if the color couldn't be parsed
 	 */
 	@ColorInt
-	public static int parseColor(String colorString) {
+	public static int parseColor(@Nullable String colorString) {
 		if (StringUtils.isBlank(colorString))
 			return 0;
 
