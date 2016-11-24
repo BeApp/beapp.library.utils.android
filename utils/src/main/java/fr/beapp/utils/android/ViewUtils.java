@@ -1,11 +1,12 @@
 package fr.beapp.utils.android;
 
-import android.annotation.TargetApi;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
@@ -14,14 +15,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import fr.beapp.utils.graphics.ColorUtils;
 import fr.beapp.utils.graphics.DrawableUtils;
-import fr.beapp.utils.graphics.SelectorPressedType;
 
 public class ViewUtils {
 
+	private static final AtomicInteger NEXT_GENERATED_ID = new AtomicInteger(1);
+
 	private ViewUtils() {
 	}
-
-	private static final AtomicInteger sNextGeneratedId = new AtomicInteger(1);
 
 	/**
 	 * Inspired from <a href="http://stackoverflow.com/a/15442898/815737">http://stackoverflow.com/a/15442898/815737</a>
@@ -34,26 +34,26 @@ public class ViewUtils {
 		}
 
 		for (; ; ) {
-			final int result = sNextGeneratedId.get();
+			final int result = NEXT_GENERATED_ID.get();
 			// aapt-generated IDs have the high byte nonzero; clamp to the range under that.
 			int newValue = result + 1;
 			if (newValue > 0x00FFFFFF) newValue = 1; // Roll over to 1, not 0.
-			if (sNextGeneratedId.compareAndSet(result, newValue)) {
+			if (NEXT_GENERATED_ID.compareAndSet(result, newValue)) {
 				return result;
 			}
 		}
 	}
 
-	@SuppressWarnings("deprecation")
-	public static void removeOnGlobalLayoutListener(View view, ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener) {
-		if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
-			view.getViewTreeObserver().removeOnGlobalLayoutListener(onGlobalLayoutListener);
-		} else {
-			view.getViewTreeObserver().removeGlobalOnLayoutListener(onGlobalLayoutListener);
-		}
-	}
+	/**
+	 * Attach a {@link Runnable} method to call once the given {@link View} is fully ready
+	 *
+	 * @param view     the View against which to invoke the method.
+	 * @param runnable the runnable to execute once the view is ready
+	 */
+	public static void executeOnGlobalLayout(@NonNull final View view, @Nullable final Runnable runnable) {
+		if (runnable == null)
+			return;
 
-	public static void executeOnGlobalLayout(final View view, final Runnable runnable) {
 		view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 			@Override
 			public void onGlobalLayout() {
@@ -64,19 +64,34 @@ public class ViewUtils {
 	}
 
 	/**
-	 * Apply a background selector to the given view with the given color as default state and a darker/brighter color for pressed state.
+	 * Convenient method to remove a previously installed global layout callback.
 	 *
-	 * @param view                the view to apply the selector to
-	 * @param color               the base color for the custom selector
-	 * @param selectorPressedType the effect to apply to the selector
+	 * @param view                   the View against which to invoke the method.
+	 * @param onGlobalLayoutListener the GlobalLayoutListener to remove from the view
 	 */
-	public static void applySelector(View view, @ColorInt int color, SelectorPressedType selectorPressedType) {
-		if (view == null)
+	@SuppressWarnings("deprecation")
+	public static void removeOnGlobalLayoutListener(@NonNull View view, @Nullable ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener) {
+		if (onGlobalLayoutListener == null)
 			return;
 
+		if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+			view.getViewTreeObserver().removeOnGlobalLayoutListener(onGlobalLayoutListener);
+		} else {
+			view.getViewTreeObserver().removeGlobalOnLayoutListener(onGlobalLayoutListener);
+		}
+	}
+
+	/**
+	 * Apply a background selector to the given view with the given color as default state and a darker/brighter color for pressed state.
+	 *
+	 * @param view     the view to apply the selector to
+	 * @param color    the base color for the custom selector
+	 * @param brighter <code>true</code> to have a brighten color as press effect, <code>false</code> to have a darker color
+	 */
+	public static void applySelector(@NonNull View view, @ColorInt int color, boolean brighter) {
 		ColorDrawable colorDrawableNormal = new ColorDrawable(color);
 		ColorDrawable colorDrawablePressed;
-		if (selectorPressedType == SelectorPressedType.BRIGHTER) {
+		if (brighter) {
 			colorDrawablePressed = new ColorDrawable(ColorUtils.colorBrighter(color, 0.4f));
 		} else {
 			colorDrawablePressed = new ColorDrawable(ColorUtils.colorDarker(color, 0.2f));
@@ -99,16 +114,13 @@ public class ViewUtils {
 	}
 
 	/**
-	 * Safely set a background drawable to the view.
+	 * Convenient method to set or remove a background drawable to the view.
 	 *
 	 * @param view     the view to modify
-	 * @param drawable the drawable to set on the view
+	 * @param drawable the drawable to set on the view, or <code>null</code> to remove the background
 	 */
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-	public static void setBackground(View view, Drawable drawable) {
-		if (view == null || drawable == null)
-			return;
-
+	@SuppressWarnings("deprecation")
+	public static void setBackground(@NonNull View view, @Nullable Drawable drawable) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
 			view.setBackground(drawable);
 		} else {
@@ -119,13 +131,10 @@ public class ViewUtils {
 	/**
 	 * Apply a color on all drawables set on a TextView.
 	 *
-	 * @param textView the textview on which to apply color on drawables
+	 * @param textView the {@link TextView} on which to apply color on drawables
 	 * @param color    the color to apply
 	 */
-	public static void applyColorOnDrawables(TextView textView, @ColorInt int color) {
-		if (textView == null)
-			return;
-
+	public static void applyColorOnDrawables(@NonNull TextView textView, @ColorInt int color) {
 		Drawable[] compoundDrawables = textView.getCompoundDrawables();
 		for (Drawable compoundDrawable : compoundDrawables) {
 			DrawableUtils.applyColor(compoundDrawable, color);
@@ -141,11 +150,7 @@ public class ViewUtils {
 	 * @param separatorView the view to fix
 	 * @see <a href="https://code.google.com/p/android/issues/detail?id=29944">Google issue 29944</a>
 	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	public static void fixDashedLine(View separatorView) {
-		if (separatorView == null)
-			return;
-
+	public static void fixDashedLine(@NonNull View separatorView) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			// Disable hardware acceleration in order to display dashed line
 			separatorView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
