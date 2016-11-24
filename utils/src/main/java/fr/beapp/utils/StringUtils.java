@@ -133,16 +133,43 @@ public class StringUtils {
 		return str.substring(0, 1).toUpperCase() + str.substring(1);
 	}
 
+	/**
+	 * Convenience method to return a Collection as a CSV String (comma delimited).
+	 * <p/>
+	 * Useful for toString() implementations.
+	 *
+	 * @param entries the Collection to display
+	 * @return the delimited String
+	 */
 	@NonNull
 	public static String collectionToCommaDelimitedString(@Nullable Collection<?> entries) {
 		return collectionToDelimitedString(entries, ",", -1);
 	}
 
+	/**
+	 * Convenience method to return a Collection as a String delimited with the given delimiter.
+	 * <p/>
+	 * Useful for toString() implementations.
+	 *
+	 * @param entries   the Collection to display
+	 * @param delimiter the delimiter to use (probably a ",")
+	 * @return the delimited String
+	 */
 	@NonNull
 	public static String collectionToDelimitedString(@Nullable Collection<?> entries, @NonNull String delimiter) {
 		return collectionToDelimitedString(entries, delimiter, -1);
 	}
 
+	/**
+	 * Convenience method to return a Collection as a String delimited with the given delimiter, with a maximum of <code>limit</code> items.
+	 * <p/>
+	 * Useful for toString() implementations.
+	 *
+	 * @param entries   the Collection to display
+	 * @param delimiter the delimiter to use (probably a ",")
+	 * @param limit     the max number of items to use
+	 * @return the delimited String
+	 */
 	@NonNull
 	public static String collectionToDelimitedString(@Nullable Collection<?> entries, @NonNull String delimiter, int limit) {
 		StringBuilder builder = new StringBuilder();
@@ -160,11 +187,23 @@ public class StringUtils {
 		return builder.toString();
 	}
 
+	/**
+	 * Convert a CSV list into an {@link Set} of Strings.
+	 *
+	 * @param str the input String
+	 * @return a {@link Set} of Strings, or an empty {@link Set} in case of empty input
+	 */
 	@NonNull
 	public static Set<String> commaDelimitedStringToSet(@Nullable String str) {
 		return delimitedStringToCollection(new TreeSet<String>(), str, ",");
 	}
 
+	/**
+	 * Convert a CSV list into an {@link List} of Strings.
+	 *
+	 * @param str the input String
+	 * @return a {@link List} of Strings, or an empty {@link List} in case of empty input
+	 */
 	@NonNull
 	public static List<String> commaDelimitedStringToList(@Nullable String str) {
 		return delimitedStringToCollection(new LinkedList<String>(), str, ",");
