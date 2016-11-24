@@ -25,6 +25,9 @@ import fr.beapp.utils.StringValidationUtils;
  */
 public class IntentUtils {
 
+	private IntentUtils() {
+	}
+
 	/**
 	 * Launch phone application with pre-filled phone number, ready to call.
 	 *

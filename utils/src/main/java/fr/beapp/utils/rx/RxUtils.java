@@ -11,6 +11,9 @@ import rx.schedulers.Schedulers;
 
 public class RxUtils {
 
+	private RxUtils() {
+	}
+
 	/**
 	 * If the given value is non-<code>null</code>, returns an {@link Observable} that emits a single item and then completes if the given value is not null.
 	 * <p/>

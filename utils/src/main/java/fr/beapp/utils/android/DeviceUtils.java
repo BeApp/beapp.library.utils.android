@@ -20,6 +20,9 @@ import fr.beapp.logger.Logger;
 
 public class DeviceUtils {
 
+	private DeviceUtils() {
+	}
+
 	private static String userAgent;
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)

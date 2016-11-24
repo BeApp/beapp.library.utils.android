@@ -2,6 +2,9 @@ package fr.beapp.utils;
 
 public class ArrayUtils {
 
+	private ArrayUtils() {
+	}
+
 	/**
 	 * Null-safe check if the specified collection is empty.
 	 *

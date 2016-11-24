@@ -6,6 +6,9 @@ import fr.beapp.logger.Logger;
 
 public class ParserUtils {
 
+	private ParserUtils() {
+	}
+
 	@Nullable
 	public static Integer parseInteger(@Nullable String value) {
 		return parseInteger(value, null);

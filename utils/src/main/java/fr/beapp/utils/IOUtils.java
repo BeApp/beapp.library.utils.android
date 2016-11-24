@@ -20,6 +20,9 @@ public class IOUtils {
 
 	public static final int DEFAULT_BUFFER_SIZE = 1024 * 4;
 
+	private IOUtils() {
+	}
+
 	public static void closeQuietly(@Nullable Closeable closeable) {
 		try {
 			if (closeable != null) {

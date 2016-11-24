@@ -4,6 +4,9 @@ import java.util.Collection;
 
 public class CollectionUtils {
 
+	private CollectionUtils() {
+	}
+
 	/**
 	 * Null-safe check if the specified collection is empty.
 	 *

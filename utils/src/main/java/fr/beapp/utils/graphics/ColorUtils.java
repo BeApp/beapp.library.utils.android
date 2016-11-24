@@ -11,6 +11,9 @@ import fr.beapp.utils.StringUtils;
 
 public class ColorUtils {
 
+	private ColorUtils() {
+	}
+
 	@ColorInt
 	public static int colorRes(Context context, @ColorRes int colorRes) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

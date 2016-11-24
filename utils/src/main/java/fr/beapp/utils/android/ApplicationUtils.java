@@ -9,6 +9,9 @@ import fr.beapp.logger.Logger;
 
 public class ApplicationUtils {
 
+	private ApplicationUtils() {
+	}
+
 	/**
 	 * Retrieve the application's version code
 	 *

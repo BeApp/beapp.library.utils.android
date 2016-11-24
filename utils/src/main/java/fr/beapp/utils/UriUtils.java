@@ -11,6 +11,9 @@ import android.support.annotation.Nullable;
 
 public class UriUtils {
 
+	private UriUtils() {
+	}
+
 	@Nullable
 	public static String retrievePathForImage(@NonNull Context context, @Nullable Uri uri) {
 		return retrievePath(context, uri, MediaStore.Images.Media.DATA, MediaStore.Images.Media.DATA);

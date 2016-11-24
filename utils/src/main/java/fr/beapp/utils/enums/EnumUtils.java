@@ -5,6 +5,9 @@ import android.support.annotation.Nullable;
 
 public class EnumUtils {
 
+	private EnumUtils() {
+	}
+
 	@Nullable
 	public static <E extends EnumFromWS> E fromKey(@NonNull E[] items, @Nullable String key) {
 		return fromKey(items, key, null);

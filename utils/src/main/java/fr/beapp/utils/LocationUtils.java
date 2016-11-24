@@ -4,6 +4,9 @@ import android.location.Location;
 
 public class LocationUtils {
 
+	private LocationUtils() {
+	}
+
 	/**
 	 * Computes the approximate distance in meters between two locations defined using the WGS84 ellipsoid.
 	 *

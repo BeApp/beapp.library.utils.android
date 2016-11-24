@@ -18,6 +18,9 @@ import fr.beapp.utils.graphics.SelectorPressedType;
 
 public class ViewUtils {
 
+	private ViewUtils() {
+	}
+
 	private static final AtomicInteger sNextGeneratedId = new AtomicInteger(1);
 
 	/**

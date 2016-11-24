@@ -5,6 +5,9 @@ import android.util.Patterns;
 
 public class StringValidationUtils {
 
+	private StringValidationUtils() {
+	}
+
 	/**
 	 * Check that the given mail is valid.
 	 *

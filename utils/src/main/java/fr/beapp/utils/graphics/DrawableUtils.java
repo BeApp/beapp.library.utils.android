@@ -12,6 +12,9 @@ import android.support.annotation.DrawableRes;
 
 public class DrawableUtils {
 
+	private DrawableUtils() {
+	}
+
 	/**
 	 * Retrieve a drawable. This method handles changes of API.
 	 *

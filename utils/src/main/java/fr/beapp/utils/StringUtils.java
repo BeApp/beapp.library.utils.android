@@ -16,6 +16,9 @@ import java.util.TreeSet;
  */
 public class StringUtils {
 
+	private StringUtils() {
+	}
+
 	/**
 	 * <p>Checks if a String is whitespace, empty ("") or null.</p>
 	 * <pre>

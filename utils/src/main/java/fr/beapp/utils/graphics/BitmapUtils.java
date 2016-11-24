@@ -21,6 +21,9 @@ import fr.beapp.logger.Logger;
 
 public class BitmapUtils {
 
+	private BitmapUtils() {
+	}
+
 	/**
 	 * Unconditionally recycle a {@link Bitmap}.
 	 * <p>

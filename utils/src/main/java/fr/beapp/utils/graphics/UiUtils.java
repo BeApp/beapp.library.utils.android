@@ -7,6 +7,9 @@ import android.util.TypedValue;
 
 public class UiUtils {
 
+	private UiUtils() {
+	}
+
 	/**
 	 * Return the ActionBar's height in pixel.
 	 *

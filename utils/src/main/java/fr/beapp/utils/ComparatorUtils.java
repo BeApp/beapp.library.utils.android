@@ -2,6 +2,9 @@ package fr.beapp.utils;
 
 public class ComparatorUtils {
 
+	private ComparatorUtils() {
+	}
+
 	/**
 	 * Backport {@link Integer#compare(int, int)} which have been added in Android 19.
 	 * <p/>
