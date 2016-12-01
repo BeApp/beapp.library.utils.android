@@ -60,5 +60,9 @@ sonarqube {
         property 'sonar.projectVersion', "${libraryVersion}"
         property 'sonar.sourceEncoding', 'UTF-8'
         property 'sonar.exclusions', '**/*Test.java'
+
+        def appProject = project(':utils')
+        def appProjectBuildDir = appProject.buildDir
+        property 'sonar.junit.reportsPath', "$appProjectBuildDir/test-results/debug"
     }
 }
