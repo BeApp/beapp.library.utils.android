@@ -52,6 +52,7 @@ apply from: 'https://bitbucket.org/beappers/beapp.gradle/raw/master/publish-libr
 
 apply plugin: 'org.sonarqube'
 sonarqube {
+    androidVariant 'debug'
     properties {
         property 'sonar.host.url', 'http://sonar.beapp.fr'
         property 'sonar.projectKey', "${libraryGroupId}"
