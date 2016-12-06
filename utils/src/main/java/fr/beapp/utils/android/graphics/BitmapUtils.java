@@ -93,11 +93,11 @@ public class BitmapUtils {
 
 		if (borderWidth > 0) {
 			paint.setColor(borderColor);
-			canvas.drawCircle(size / 2, size / 2, size / 2, paint);
+			canvas.drawCircle(size / 2f, size / 2f, size / 2f, paint);
 		}
 
 		paint.setShader(new BitmapShader(source, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
-		canvas.drawCircle(size / 2, size / 2, size / 2 - borderWidth, paint);
+		canvas.drawCircle(size / 2f, size / 2f, size / 2f - borderWidth, paint);
 
 		return output;
 	}
@@ -228,6 +228,8 @@ public class BitmapUtils {
 			case ExifInterface.ORIENTATION_ROTATE_270:
 				m.postRotate(270);
 				break;
+			default:
+				// No rotation to apply
 		}
 
 		return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, true);

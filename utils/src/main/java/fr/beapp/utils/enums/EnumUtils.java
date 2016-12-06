@@ -60,6 +60,7 @@ public class EnumUtils {
 		try {
 			return Enum.valueOf(clazz, name);
 		} catch (Exception ignored) {
+			// Nothing to do here. The enum was simply not found
 		}
 		return defaultValue;
 	}
