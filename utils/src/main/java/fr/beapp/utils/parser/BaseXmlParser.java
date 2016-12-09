@@ -28,8 +28,8 @@ import fr.beapp.utils.lang.StringUtils;
 
 public abstract class BaseXmlParser {
 
-	private final XPathFactory XPATH_FACTORY = XPathFactory.newInstance();
-	private final XPath XPATH = XPATH_FACTORY.newXPath();
+	private final XPathFactory xPathFactory = XPathFactory.newInstance();
+	private final XPath xPath = xPathFactory.newXPath();
 
 	protected Document parseDocument(@NonNull File file) throws ParserConfigurationException, IOException, SAXException {
 		FileInputStream fileInputStream = null;
@@ -56,7 +56,7 @@ public abstract class BaseXmlParser {
 	@Nullable
 	protected Node getXNode(@Nullable Node parent, @NonNull String expression) {
 		try {
-			return (Node) XPATH.evaluate(expression, parent, XPathConstants.NODE);
+			return (Node) xPath.evaluate(expression, parent, XPathConstants.NODE);
 		} catch (Exception e) {
 			Logger.error("Can't retrieve node from expression: %s", e, expression);
 		}
@@ -76,7 +76,7 @@ public abstract class BaseXmlParser {
 	@Nullable
 	protected NodeList getXNodes(@Nullable Node parent, @NonNull String expression) {
 		try {
-			return (NodeList) XPATH.evaluate(expression, parent, XPathConstants.NODESET);
+			return (NodeList) xPath.evaluate(expression, parent, XPathConstants.NODESET);
 		} catch (Exception e) {
 			Logger.error("Can't retrieve nodes from expression: %s", e, expression);
 		}
@@ -137,12 +137,10 @@ public abstract class BaseXmlParser {
 
 	@Nullable
 	protected String getAttributeByName(@Nullable Node parent, @NonNull String name, @Nullable String defaultValue) {
-		if (parent != null) {
-			if (parent.getNodeType() == Node.ELEMENT_NODE) {
-				Element element = (Element) parent;
-				if (element.hasAttribute(name)) {
-					return element.getAttribute(name);
-				}
+		if (parent != null && parent.getNodeType() == Node.ELEMENT_NODE) {
+			Element element = (Element) parent;
+			if (element.hasAttribute(name)) {
+				return element.getAttribute(name);
 			}
 		}
 		return defaultValue;

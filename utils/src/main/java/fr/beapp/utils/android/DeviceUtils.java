@@ -21,21 +21,15 @@ public class DeviceUtils {
 	 * @param context the calling context
 	 * @return the screen's width, or <code>-1</code> if something went wrong
 	 */
-	@SuppressWarnings("deprecation")
 	public static int getScreenWidth(@NonNull Context context) {
 		WindowManager systemService = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 		if (systemService == null)
 			return -1;
 
+		Point size = new Point();
 		Display display = systemService.getDefaultDisplay();
-
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-			Point size = new Point();
-			display.getSize(size);
-			return size.x;
-		} else {
-			return display.getWidth();
-		}
+		display.getSize(size);
+		return size.x;
 	}
 
 	/**
@@ -75,7 +69,7 @@ public class DeviceUtils {
 	 */
 	@NonNull
 	public static synchronized String getUserAgent(@NonNull Context context) {
-		return String.format("Android (Linux; U; Android %s; %s; %s/%s) %s/%s", Build.VERSION.SDK, Locale.getDefault().getLanguage(), Build.BRAND, Build.MODEL, context.getPackageName(), ApplicationUtils.getVersionName(context));
+		return String.format(Locale.ENGLISH, "Android (Linux; U; Android %d; %s; %s/%s) %s/%s", Build.VERSION.SDK_INT, Locale.getDefault().getLanguage(), Build.BRAND, Build.MODEL, context.getPackageName(), ApplicationUtils.getVersionName(context));
 	}
 
 }

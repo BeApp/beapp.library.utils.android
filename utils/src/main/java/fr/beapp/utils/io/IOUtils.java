@@ -38,6 +38,7 @@ public class IOUtils {
 				closeable.close();
 			}
 		} catch (Exception ignored) {
+			// Ignore this
 		}
 	}
 
