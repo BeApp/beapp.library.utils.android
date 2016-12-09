@@ -4,20 +4,22 @@ import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.view.Gravity;
 
 public class GravityDrawable extends Drawable {
 
 	private final Drawable drawable;
+
 	private int gravity;
 	private int xPadding;
 	private int yPadding;
 
-	public GravityDrawable(Drawable drawable, int gravity) {
+	public GravityDrawable(@NonNull Drawable drawable, int gravity) {
 		this(drawable, gravity, 0, 0);
 	}
 
-	public GravityDrawable(Drawable drawable, int gravity, int xPadding, int yPadding) {
+	public GravityDrawable(@NonNull Drawable drawable, int gravity, int xPadding, int yPadding) {
 		this.drawable = drawable;
 		this.gravity = gravity;
 		this.xPadding = xPadding;
@@ -25,7 +27,7 @@ public class GravityDrawable extends Drawable {
 	}
 
 	@Override
-	public void draw(Canvas canvas) {
+	public void draw(@NonNull Canvas canvas) {
 		drawable.draw(canvas);
 	}
 
