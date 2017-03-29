@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import fr.beapp.utils.TestUtils;
-import fr.beapp.utils.lang.StringUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -52,6 +51,20 @@ public class StringUtilsTest {
 		assertTrue(StringUtils.isNotBlank("t"));
 		assertTrue(StringUtils.isNotBlank("test"));
 		assertTrue(StringUtils.isNotBlank("  test  "));
+	}
+
+	@Test
+	public void testAreAllNotBlank() throws Exception {
+		assertFalse(StringUtils.areAllNotBlank((String) null));
+		assertFalse(StringUtils.areAllNotBlank(""));
+		assertFalse(StringUtils.areAllNotBlank(" "));
+		assertFalse(StringUtils.areAllNotBlank(" ", "", null, "\t"));
+		assertFalse(StringUtils.areAllNotBlank("t", ""));
+		assertFalse(StringUtils.areAllNotBlank("  test  ", "   "));
+
+		assertTrue(StringUtils.areAllNotBlank());
+		assertTrue(StringUtils.areAllNotBlank("test"));
+		assertTrue(StringUtils.areAllNotBlank("test", "test"));
 	}
 
 	@Test

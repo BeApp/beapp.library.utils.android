@@ -200,17 +200,16 @@ public class BitmapUtils {
 	/**
 	 * Return a new bitmap with orientation fixed. This is really useful to properly handle pictures taken on Samsung devices
 	 * <p>
-	 * This method will generate a new bitmap.
+	 * This method will generate a new bitmap or return the given one if exif is null.
 	 * <p/>
-	 * The develop MAY wan to recycle the source bitmap if it's no longer used.
+	 * The develop MAY want to recycle the source bitmap if it's no longer used.
 	 *
 	 * @param bitmap the bitmap to rotate
-	 * @param exif   the exit associated to this bitmap
-	 * @return a new Bitmap instance rotated accordingly to exif data
+	 * @param exif   the exit associated to this bitmap, or <code>null</code>
+	 * @return a new Bitmap instance rotated accordingly to exif data, or the given Bitmap if exif was <code>null</code>
 	 */
-	public static Bitmap fixOrientation(Bitmap bitmap, ExifInterface exif) {
-		if (bitmap == null)
-			return null;
+	@NonNull
+	public static Bitmap fixOrientation(@NonNull Bitmap bitmap, @Nullable ExifInterface exif) {
 		if (exif == null)
 			return bitmap;
 
@@ -264,13 +263,10 @@ public class BitmapUtils {
 	 * Generate a {@link Bitmap} from a given {@link View}.
 	 *
 	 * @param view the View to convert to Bitmap
-	 * @return the generated Bitmap or <code>null</code> if the source Bitmap was <code>null</code>
+	 * @return the generated Bitmap
 	 */
-	@Nullable
-	public static Bitmap fromView(@Nullable View view) {
-		if (view == null)
-			return null;
-
+	@NonNull
+	public static Bitmap fromView(@NonNull View view) {
 		if (view.getMeasuredWidth() == 0 || view.getMeasuredHeight() == 0) {
 			ViewUtils.forceMeasure(view);
 		}
@@ -298,6 +294,26 @@ public class BitmapUtils {
 			view.draw(canvas);
 			view.setDrawingCacheEnabled(true);
 			return bitmap;
+		} finally {
+			view.destroyDrawingCache();
+		}
+	}
+
+	/**
+	 * Draw a {@link View} on the given {@link Bitmap}.
+	 *
+	 * @param view   the View to draw on Bitmap
+	 * @param bitmap the Bitmap to use as canvas
+	 */
+	public static void fromView(@NonNull View view, @NonNull Bitmap bitmap) {
+		if (view.getMeasuredWidth() == 0 || view.getMeasuredHeight() == 0) {
+			ViewUtils.forceMeasure(view);
+		}
+
+		Canvas canvas = new Canvas(bitmap);
+		try {
+			view.draw(canvas);
+			view.setDrawingCacheEnabled(true);
 		} finally {
 			view.destroyDrawingCache();
 		}

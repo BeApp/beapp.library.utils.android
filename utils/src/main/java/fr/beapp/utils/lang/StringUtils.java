@@ -71,6 +71,15 @@ public class StringUtils {
 		return !StringUtils.isBlank(str);
 	}
 
+	public static boolean areAllNotBlank(@NonNull String... values) {
+		for (String value : values) {
+			if (StringUtils.isBlank(value)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	/**
 	 * <p>Removes control characters (char &lt;= 32) from both
 	 * ends of this String, handling <code>null</code> by returning
