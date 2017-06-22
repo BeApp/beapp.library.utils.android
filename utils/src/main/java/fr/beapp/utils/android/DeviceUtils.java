@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Px;
 import android.view.Display;
 import android.view.WindowManager;
 
@@ -21,6 +22,7 @@ public class DeviceUtils {
 	 * @param context the calling context
 	 * @return the screen's width, or <code>-1</code> if something went wrong
 	 */
+	@Px
 	public static int getScreenWidth(@NonNull Context context) {
 		WindowManager systemService = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 		if (systemService == null)
@@ -30,6 +32,22 @@ public class DeviceUtils {
 		Display display = systemService.getDefaultDisplay();
 		display.getSize(size);
 		return size.x;
+	}
+
+	/**
+	 * Convenient method to retrieve the status bar's height
+	 *
+	 * @param context the calling context
+	 * @return the status bar's height, or <code>-1</code> if something went wrong
+	 */
+	@Px
+	public static int getStatusBarHeight(@NonNull Context context) {
+		int result = -1;
+		int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+		if (resourceId > 0) {
+			result = context.getResources().getDimensionPixelSize(resourceId);
+		}
+		return result;
 	}
 
 	/**
