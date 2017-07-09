@@ -1,5 +1,6 @@
 package fr.beapp.utils.android;
 
+import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
@@ -7,12 +8,15 @@ import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.res.ResourcesCompat;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import fr.beapp.utils.R;
 import fr.beapp.utils.android.graphics.ColorUtils;
 import fr.beapp.utils.android.graphics.DrawableUtils;
 
@@ -125,6 +129,21 @@ public class ViewUtils {
 			view.setBackground(drawable);
 		} else {
 			view.setBackgroundDrawable(drawable);
+		}
+	}
+
+	/**
+	 * Programmatically apply {@code ?attr/selectableItemBackground} on foreground
+	 *
+	 * @param view the view to modify
+	 */
+	public static void applySelectableForeground(@NonNull View view) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+			TypedValue typedValue = new TypedValue();
+			Context context = view.getContext();
+
+			context.getTheme().resolveAttribute(R.attr.selectableItemBackground, typedValue, true);
+			view.setForeground(ResourcesCompat.getDrawable(context.getResources(), typedValue.resourceId, context.getTheme()));
 		}
 	}
 

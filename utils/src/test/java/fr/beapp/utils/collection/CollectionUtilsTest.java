@@ -32,15 +32,6 @@ public class CollectionUtilsTest extends BaseRobolectric {
 	}
 
 	@Test
-	public void testHasOneItem() throws Exception {
-		assertFalse(CollectionUtils.hasOneItem(null));
-		assertFalse(CollectionUtils.hasOneItem(emptyList()));
-		assertFalse(CollectionUtils.hasOneItem(asList("a", "b")));
-
-		assertTrue(CollectionUtils.hasOneItem(singletonList("a")));
-	}
-
-	@Test
 	public void testHasItemsCount() throws Exception {
 		assertFalse(CollectionUtils.hasItemsCount(null, 1));
 		assertFalse(CollectionUtils.hasItemsCount(emptyList(), 1));

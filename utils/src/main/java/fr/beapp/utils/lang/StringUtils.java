@@ -181,16 +181,41 @@ public class StringUtils {
 	 */
 	@NonNull
 	public static String collectionToDelimitedString(@Nullable Collection<?> entries, @NonNull String delimiter, int limit) {
+		return collectionToDelimitedString(entries, delimiter, limit, false);
+	}
+
+	/**
+	 * Convenience method to return a Collection as a String delimited with the given delimiter, with a maximum of <code>limit</code> items.
+	 * <p/>
+	 * Useful for toString() implementations.
+	 *
+	 * @param entries     the Collection to display
+	 * @param delimiter   the delimiter to use (probably a ",")
+	 * @param limit       the max number of items to use
+	 * @param filterEmpty indicate if null entry or empty toString value should be added in final string
+	 * @return the delimited String
+	 */
+	@NonNull
+	public static String collectionToDelimitedString(@Nullable Collection<?> entries, @NonNull String delimiter, int limit, boolean filterEmpty) {
 		StringBuilder builder = new StringBuilder();
 		if (entries != null) {
 			int i = 0;
 			Iterator<?> iterator = entries.iterator();
 			while (iterator.hasNext()) {
-				builder.append(iterator.next());
+				Object item = iterator.next();
+				if (filterEmpty && item == null)
+					continue;
+
+				String stringItem = String.valueOf(item);
+				if (filterEmpty && fr.beapp.utils.lang.StringUtils.isBlank(stringItem))
+					continue;
+
+				if (builder.length() > 0)
+					builder.append(delimiter);
+
+				builder.append(stringItem);
 				if (limit != -1 && ++i >= limit)
 					break;
-				if (iterator.hasNext())
-					builder.append(delimiter);
 			}
 		}
 		return builder.toString();

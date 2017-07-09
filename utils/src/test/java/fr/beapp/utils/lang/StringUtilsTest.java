@@ -150,6 +150,22 @@ public class StringUtilsTest {
 	}
 
 	@Test
+	public void testCollectionToDelimitedStringLimitWithEmptyValues() throws Exception {
+		String delimiter = "|";
+		assertEquals("", StringUtils.collectionToDelimitedString(null, delimiter, 4, true));
+		assertEquals("", StringUtils.collectionToDelimitedString(Collections.emptyList(), delimiter, 4, true));
+		assertEquals("1", StringUtils.collectionToDelimitedString(Collections.singletonList("1"), delimiter, 4, true));
+		assertEquals("1|2", StringUtils.collectionToDelimitedString(Arrays.asList("1", "2"), delimiter, 4, true));
+		assertEquals("1|2", StringUtils.collectionToDelimitedString(Arrays.asList(1, 2), delimiter, 4, true));
+		assertEquals("1|2", StringUtils.collectionToDelimitedString(Arrays.asList(new ObjectWithToString(1), new ObjectWithToString(2)), delimiter, 4, true));
+		assertEquals("1|2|3|4", StringUtils.collectionToDelimitedString(Arrays.asList(1, 2, 3, 4, 5, 6), delimiter, 4, true));
+
+		assertEquals("1", StringUtils.collectionToDelimitedString(Arrays.asList("1", null), delimiter, 4, true));
+		assertEquals("1|2", StringUtils.collectionToDelimitedString(Arrays.asList("1", "", "2"), delimiter, 4, true));
+		assertEquals("1|2|4|6", StringUtils.collectionToDelimitedString(Arrays.asList(1, 2, null, 4, null, 6, 7), delimiter, 4, true));
+	}
+
+	@Test
 	public void testCommaDelimitedStringToSet() throws Exception {
 		Assert.assertEquals(TestUtils.newTree(), StringUtils.commaDelimitedStringToSet(null));
 		assertEquals(TestUtils.newTree(), StringUtils.commaDelimitedStringToSet(""));
@@ -179,4 +195,5 @@ public class StringUtilsTest {
 			return String.valueOf(nb);
 		}
 	}
+
 }
