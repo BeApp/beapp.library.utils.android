@@ -11,27 +11,14 @@ public class EnumUtils {
 	/**
 	 * Retrieve an {@link Enum} value according to the given key to look for.
 	 *
-	 * @param items a set of {@link Enum} values to look through
-	 * @param key   the key to search in items
-	 * @param <E>   the type of the Enum value to search, which must implement {@link EnumFromWS}
-	 * @return the item value if found, <code>null</code> otherwise
-	 */
-	@Nullable
-	public static <E extends EnumFromWS> E fromKey(@NonNull E[] items, @Nullable String key) {
-		return fromKey(items, key, null);
-	}
-
-	/**
-	 * Retrieve an {@link Enum} value according to the given key to look for.
-	 *
 	 * @param items        a set of {@link Enum} values to look through
 	 * @param key          the key to search in items
 	 * @param defaultValue the value to return if no match was found
 	 * @param <E>          the type of the Enum value to search, which must implement {@link EnumFromWS}
 	 * @return the item value if found, <code>defaultValue</code> otherwise
 	 */
-	@Nullable
-	public static <E extends EnumFromWS> E fromKey(@NonNull E[] items, @Nullable String key, @Nullable E defaultValue) {
+	@NonNull
+	public static <E extends EnumFromWS> E fromKey(@NonNull E[] items, @Nullable String key, @NonNull E defaultValue) {
 		if (key == null)
 			return defaultValue;
 
@@ -52,8 +39,8 @@ public class EnumUtils {
 	 * @param <E>          the type of the Enum value to search
 	 * @return the item value if found, <code>defaultValue</code> otherwise
 	 */
-	@Nullable
-	public static <E extends Enum<E>> E fromName(@NonNull Class<E> clazz, @Nullable String name, @Nullable E defaultValue) {
+	@NonNull
+	public static <E extends Enum<E>> E fromName(@NonNull Class<E> clazz, @Nullable String name, @NonNull E defaultValue) {
 		if (name == null)
 			return defaultValue;
 

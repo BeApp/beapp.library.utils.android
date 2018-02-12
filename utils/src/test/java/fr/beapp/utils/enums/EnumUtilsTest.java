@@ -2,21 +2,9 @@ package fr.beapp.utils.enums;
 
 import org.junit.Test;
 
-import fr.beapp.utils.enums.EnumFromWS;
-import fr.beapp.utils.enums.EnumUtils;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class EnumUtilsTest {
-
-	@Test
-	public void testFromKey() throws Exception {
-		assertEquals(null, EnumUtils.fromKey(TestEnum.values(), null));
-		assertEquals(null, EnumUtils.fromKey(TestEnum.values(), "unknown"));
-
-		assertEquals(TestEnum.VALUE_2, EnumUtils.fromKey(TestEnum.values(), "val2"));
-		assertEquals(TestEnum.VALUE_2, EnumUtils.fromKey(TestEnum.values(), "VAL2"));
-	}
 
 	@Test
 	public void testFromKeyWithDefault() throws Exception {
