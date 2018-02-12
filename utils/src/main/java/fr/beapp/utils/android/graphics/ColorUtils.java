@@ -15,6 +15,22 @@ public class ColorUtils {
 	private ColorUtils() {
 	}
 
+	public static int alpha(@ColorInt int color) {
+		return color >> 24 & 0xff;
+	}
+
+	public static int red(@ColorInt int color) {
+		return color >> 16 & 0xff;
+	}
+
+	public static int green(@ColorInt int color) {
+		return color >> 8 & 0xff;
+	}
+
+	public static int blue(@ColorInt int color) {
+		return color & 0xff;
+	}
+
 	@ColorInt
 	public static int colorRes(Context context, @ColorRes int colorRes) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

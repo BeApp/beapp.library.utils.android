@@ -36,17 +36,6 @@ public class CollectionUtils {
 	 * @param collection the collection to check, may be null
 	 * @return true if non-null and have only one item
 	 */
-	@Deprecated
-	public static boolean hasOneItem(Collection<?> collection) {
-		return hasItemsCount(collection, 1);
-	}
-
-	/**
-	 * Null-safe check if the specified collection is not empty and have only one item.
-	 *
-	 * @param collection the collection to check, may be null
-	 * @return true if non-null and have only one item
-	 */
 	public static boolean hasItemsCount(Collection<?> collection, int count) {
 		return collection != null && collection.size() == count;
 	}
