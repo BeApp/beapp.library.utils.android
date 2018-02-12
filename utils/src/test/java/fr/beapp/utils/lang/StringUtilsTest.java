@@ -196,4 +196,23 @@ public class StringUtilsTest {
 		}
 	}
 
+	@Test
+	public void testRemoveAccents() throws Exception {
+		Assert.assertEquals("", StringUtils.removeAccents(""));
+		Assert.assertEquals("test", StringUtils.removeAccents("test"));
+		Assert.assertEquals("eeeee", StringUtils.removeAccents("eèëêé"));
+		Assert.assertEquals("aaaa", StringUtils.removeAccents("aàäâ"));
+		Assert.assertEquals("iiii", StringUtils.removeAccents("iìïî"));
+		Assert.assertEquals("uuuu", StringUtils.removeAccents("uùüû"));
+		Assert.assertEquals("nn", StringUtils.removeAccents("nñ"));
+		Assert.assertEquals("cc", StringUtils.removeAccents("cç"));
+	}
+
+	@Test
+	public void testSlugify() throws Exception {
+		Assert.assertEquals("", StringUtils.slugify(""));
+		Assert.assertEquals("test", StringUtils.slugify("test"));
+		Assert.assertEquals("rennes-actualites-info-en-continu-faits-divers-politique", StringUtils.slugify("Rennes actualités : info en continu, faits divers, politique"));
+	}
+
 }

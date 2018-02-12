@@ -3,6 +3,7 @@ package fr.beapp.utils.lang;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.text.Normalizer;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -249,6 +250,33 @@ public class StringUtils {
 			Collections.addAll(collection, str.split(delimiter));
 		}
 		return collection;
+	}
+
+	/**
+	 * Remove all accents from the given value
+	 *
+	 * @param value the input to sanitize from accents
+	 * @return the value sanitized from accents
+	 */
+	@NonNull
+	public static String removeAccents(@NonNull String value) {
+		String normalized = Normalizer.normalize(value, Normalizer.Form.NFD);
+		return normalized.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+	}
+
+	/**
+	 * Transform the given value into a slug
+	 *
+	 * @param value the value to convert
+	 * @return the slug computed from given value
+	 */
+	@NonNull
+	public static String slugify(@NonNull String value) {
+		value = removeAccents(value);
+		value = value.replaceAll("[^a-zA-Z0-9-]", "-");
+		value = value.replaceAll("-{2,}", "-");
+		value = value.toLowerCase();
+		return value;
 	}
 
 }
