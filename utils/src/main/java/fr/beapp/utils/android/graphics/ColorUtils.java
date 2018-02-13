@@ -58,25 +58,26 @@ public class ColorUtils {
 	 * <li>red, blue, green, black, white, gray, cyan, magenta, yellow, lightgray, darkgray, grey, lightgrey, darkgrey, aqua, fuschia, lime, maroon, navy, olive, purple, silver, teal</li>
 	 * </ul>
 	 *
-	 * @param colorString a color representation to parse
-	 * @return a color value corresponding to the given color string ,or 0 if the color couldn't be parsed
+	 * @param colorString  a color representation to parse
+	 * @param defaultColor the default color to use as fallback in case of error during parsing
+	 * @return a color value corresponding to the given color string, or the default value if the color couldn't be parsed
 	 */
 	@ColorInt
-	public static int parseColor(@Nullable String colorString) {
+	public static int parseColor(@Nullable String colorString, @ColorInt int defaultColor) {
 		if (StringUtils.isBlank(colorString))
-			return 0;
+			return defaultColor;
 
 		if (colorString.startsWith("#")) {
 			try {
 				return Color.parseColor(colorString);
-			} catch (IllegalArgumentException ignored) {
-				Logger.warn("Couldn't parse RGB color %s", colorString);
+			} catch (IllegalArgumentException e) {
+				Logger.warn("Couldn't parse RGB color %s: %s", colorString, e.getLocalizedMessage());
 			}
 
 		} else if (colorString.contains(",")) {
 			String[] componentsString = colorString.split(",");
 			if (componentsString.length < 3)
-				return 0;
+				return defaultColor;
 
 			int[] components = new int[componentsString.length];
 			for (int i = 0; i < componentsString.length; i++) {
@@ -90,7 +91,7 @@ public class ColorUtils {
 			}
 		}
 
-		return 0;
+		return defaultColor;
 	}
 
 	/**
