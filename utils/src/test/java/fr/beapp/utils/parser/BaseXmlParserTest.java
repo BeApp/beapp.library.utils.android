@@ -212,9 +212,18 @@ public class BaseXmlParserTest {
 		assertEquals(defaultValue, xmlParser.getAttributeByName(bookNode, "unknown", defaultValue));
 		assertEquals("bk104", xmlParser.getAttributeByName(bookNode, "id", defaultValue));
 
-		assertEquals(Integer.valueOf(-1), xmlParser.getAttributeIntegerByName(bookNode, "id", -1));
-		assertEquals(Long.valueOf(-1L), xmlParser.getAttributeLongByName(bookNode, "id", -1L));
-		assertEquals(Double.valueOf(-1.0), xmlParser.getAttributeDoubleByName(bookNode, "id", -1.0));
+		assertEquals(null, xmlParser.getAttributeIntegerByName(bookNode, "id"));
+		assertEquals(-1, xmlParser.getAttributeIntegerByName(bookNode, "id", -1));
+
+		assertEquals(null, xmlParser.getAttributeLongByName(bookNode, "id"));
+		assertEquals(-1L, xmlParser.getAttributeLongByName(bookNode, "id", -1L));
+
+		assertEquals(null, xmlParser.getAttributeFloatByName(bookNode, "id"));
+		assertEquals(-1.0f, xmlParser.getAttributeFloatByName(bookNode, "id", -1.0f), 0.00001f);
+
+		assertEquals(null, xmlParser.getAttributeDoubleByName(bookNode, "id"));
+		assertEquals(-1.0, xmlParser.getAttributeDoubleByName(bookNode, "id", -1.0), 0.00001f);
+
 		assertEquals(false, xmlParser.getAttributeBooleanByName(bookNode, "id"));
 	}
 
