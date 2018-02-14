@@ -1,13 +1,9 @@
 package fr.beapp.utils.android.graphics;
 
-import android.content.Context;
 import android.graphics.Color;
-import android.os.Build;
 import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
 import android.support.annotation.FloatRange;
 import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import fr.beapp.logger.Logger;
@@ -36,15 +32,6 @@ public class ColorUtils {
 	@IntRange(from = 0, to = 255)
 	public static int blue(@ColorInt int color) {
 		return color & 0xff;
-	}
-
-	@ColorInt
-	public static int colorRes(@NonNull Context context, @ColorRes int colorRes) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-			return context.getColor(colorRes);
-		} else {
-			return context.getResources().getColor(colorRes);
-		}
 	}
 
 	/**
@@ -116,7 +103,7 @@ public class ColorUtils {
 	 * @return a color with modified alpha-channel
 	 */
 	@ColorInt
-	public static int alpha(@ColorInt int color, @FloatRange(from = 0, to = 1) int alpha) {
+	public static int alpha(@ColorInt int color, @IntRange(from = 0, to = 255) int alpha) {
 		if (color == 0)
 			return 0;
 		return color | (alpha << 24);

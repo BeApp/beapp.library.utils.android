@@ -10,9 +10,8 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Px;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
-
-import fr.beapp.utils.android.graphics.ColorUtils;
 
 public class CircleIconDrawable extends LayerDrawable {
 
@@ -21,7 +20,7 @@ public class CircleIconDrawable extends LayerDrawable {
 	}
 
 	public static Builder withColorRes(@NonNull Context context, @ColorRes int backgroundColorRes) {
-		return new Builder(context, ColorUtils.colorRes(context, backgroundColorRes));
+		return new Builder(context, ContextCompat.getColor(context, backgroundColorRes));
 	}
 
 	public static Builder withColor(@NonNull Context context, @ColorInt int backgroundColorRes) {
