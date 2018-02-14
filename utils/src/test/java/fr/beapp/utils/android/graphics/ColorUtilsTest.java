@@ -36,4 +36,14 @@ public class ColorUtilsTest extends BaseRobolectric {
 		Assert.assertEquals(255, ColorUtils.blue(Color.argb(255, 255, 255, 255)));
 	}
 
+	@Test
+	public void toHexa() throws Exception {
+		Assert.assertEquals("#000000", ColorUtils.toHexa(Color.rgb(0, 0, 0)));
+		Assert.assertEquals("#000000", ColorUtils.toHexa(Color.argb(0, 0, 0, 0)));
+		Assert.assertEquals("#c87841", ColorUtils.toHexa(Color.rgb(200, 120, 65)));
+		Assert.assertEquals("#c87841", ColorUtils.toHexa(Color.argb(0, 200, 120, 65)));
+		Assert.assertEquals("#ffffff", ColorUtils.toHexa(Color.rgb(255, 255, 255)));
+		Assert.assertEquals("#ffffff", ColorUtils.toHexa(Color.argb(0, 255, 255, 255)));
+	}
+
 }
