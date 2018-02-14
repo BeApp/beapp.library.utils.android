@@ -17,7 +17,7 @@ public class EnumUtils {
 	 * @return the item value if found, <code>null</code> otherwise
 	 */
 	@Nullable
-	static <E extends EnumFromWS> E fromKey(@NonNull E[] items, @Nullable String key) {
+	public static <E extends EnumFromWS> E fromKey(@NonNull E[] items, @Nullable String key) {
 		if (key == null)
 			return null;
 
