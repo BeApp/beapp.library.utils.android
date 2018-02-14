@@ -4,46 +4,50 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 
-import rx.observers.TestSubscriber;
+import io.reactivex.observers.TestObserver;
+import io.reactivex.subscribers.TestSubscriber;
 
 public class RxUtilsTest {
 
 	private TestSubscriber<Object> testSubscriber;
+	private TestObserver<Object> testObserver;
 
 	@Before
 	public void initTest() {
-		testSubscriber = new TestSubscriber<>();
+		testSubscriber = TestSubscriber.create();
+		testObserver = TestObserver.create();
 	}
 
 	@Test
 	public void testJustOrEmpty_null() throws Exception {
-		RxUtils.justOrEmpty(null).subscribe(testSubscriber);
+		RxUtils.justOrEmpty(null).subscribe(testObserver);
 
-		testSubscriber.awaitTerminalEvent();
-		testSubscriber.assertCompleted();
-		testSubscriber.assertNoErrors();
-		testSubscriber.assertNoValues();
+		testObserver.awaitTerminalEvent();
+		testObserver.assertComplete();
+		testObserver.assertNoErrors();
+		testObserver.assertNoValues();
 	}
 
 	@Test
 	public void testJustOrEmpty_value() throws Exception {
-		RxUtils.justOrEmpty("test").subscribe(testSubscriber);
+		RxUtils.justOrEmpty("test").subscribe(testObserver);
 
-		testSubscriber.awaitTerminalEvent();
-		testSubscriber.assertCompleted();
-		testSubscriber.assertNoErrors();
-		testSubscriber.assertValueCount(1);
-		testSubscriber.assertValue("test");
+		testObserver.awaitTerminalEvent();
+		testObserver.assertComplete();
+		testObserver.assertNoErrors();
+		testObserver.assertValueCount(1);
+		testObserver.assertValue("test");
 	}
 
 	@Test
 	public void testFromOrEmpty_null() throws Exception {
-		RxUtils.fromOrEmpty(null).subscribe(testSubscriber);
+		RxUtils.fromOrEmpty((Collection<Object>) null).subscribe(testSubscriber);
 
 		testSubscriber.awaitTerminalEvent();
-		testSubscriber.assertCompleted();
+		testSubscriber.assertComplete();
 		testSubscriber.assertNoErrors();
 		testSubscriber.assertNoValues();
 	}
@@ -53,7 +57,7 @@ public class RxUtilsTest {
 		RxUtils.fromOrEmpty(Collections.singletonList("test")).subscribe(testSubscriber);
 
 		testSubscriber.awaitTerminalEvent();
-		testSubscriber.assertCompleted();
+		testSubscriber.assertComplete();
 		testSubscriber.assertNoErrors();
 		testSubscriber.assertValueCount(1);
 		testSubscriber.assertValue("test");
@@ -64,7 +68,7 @@ public class RxUtilsTest {
 		RxUtils.fromOrEmpty(Arrays.asList(1, 2, 3)).subscribe(testSubscriber);
 
 		testSubscriber.awaitTerminalEvent();
-		testSubscriber.assertCompleted();
+		testSubscriber.assertComplete();
 		testSubscriber.assertNoErrors();
 		testSubscriber.assertValueCount(3);
 		testSubscriber.assertValues(1, 2, 3);

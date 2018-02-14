@@ -1,9 +1,11 @@
 package fr.beapp.utils.collection;
 
 import android.support.annotation.Nullable;
+import android.util.SparseArray;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 public class CollectionUtils {
 
@@ -16,8 +18,38 @@ public class CollectionUtils {
 	 * @param collection the collection to check, may be null
 	 * @return true if empty or null
 	 */
+	public static boolean isEmpty(Object[] collection) {
+		return collection == null || collection.length == 0;
+	}
+
+	/**
+	 * Null-safe check if the specified collection is empty.
+	 *
+	 * @param collection the collection to check, may be null
+	 * @return true if empty or null
+	 */
 	public static boolean isEmpty(Collection<?> collection) {
 		return collection == null || collection.isEmpty();
+	}
+
+	/**
+	 * Null-safe check if the specified collection is empty.
+	 *
+	 * @param collection the collection to check, may be null
+	 * @return true if empty or null
+	 */
+	public static boolean isEmpty(Map<?, ?> collection) {
+		return collection == null || collection.isEmpty();
+	}
+
+	/**
+	 * Null-safe check if the specified collection is empty.
+	 *
+	 * @param collection the collection to check, may be null
+	 * @return true if empty or null
+	 */
+	public static boolean isEmpty(SparseArray<?> collection) {
+		return collection == null || collection.size() == 0;
 	}
 
 	/**

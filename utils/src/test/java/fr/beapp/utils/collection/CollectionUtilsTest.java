@@ -1,6 +1,11 @@
 package fr.beapp.utils.collection;
 
+import android.util.SparseArray;
+
 import org.junit.Test;
+
+import java.util.Collection;
+import java.util.Map;
 
 import fr.beapp.utils.BaseRobolectric;
 
@@ -15,7 +20,10 @@ public class CollectionUtilsTest extends BaseRobolectric {
 
 	@Test
 	public void testIsEmpty() throws Exception {
-		assertTrue(CollectionUtils.isEmpty(null));
+		assertTrue(CollectionUtils.isEmpty((Collection) null));
+		assertTrue(CollectionUtils.isEmpty((Object[]) null));
+		assertTrue(CollectionUtils.isEmpty((Map) null));
+		assertTrue(CollectionUtils.isEmpty((SparseArray) null));
 		assertTrue(CollectionUtils.isEmpty(emptyList()));
 
 		assertFalse(CollectionUtils.isEmpty(singletonList("a")));

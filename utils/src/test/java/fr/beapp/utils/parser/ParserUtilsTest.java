@@ -15,11 +15,18 @@ public class ParserUtilsTest extends BaseRobolectric {
 		assertEquals(null, ParserUtils.parseInteger("abc"));
 		assertEquals(null, ParserUtils.parseInteger("10aa"));
 
-		assertEquals(Integer.valueOf(25), ParserUtils.parseInteger("10aa", 25));
-
 		assertEquals(Integer.valueOf(10), ParserUtils.parseInteger("10"));
 		assertEquals(Integer.valueOf(10), ParserUtils.parseInteger("+10"));
 		assertEquals(Integer.valueOf(-10), ParserUtils.parseInteger("-10"));
+	}
+
+	@Test
+	public void testParseInteger_withDefault() throws Exception {
+		assertEquals(25, ParserUtils.parseInteger("10aa", 25));
+
+		assertEquals(10, ParserUtils.parseInteger("10", 25));
+		assertEquals(10, ParserUtils.parseInteger("+10", 25));
+		assertEquals(-10, ParserUtils.parseInteger("-10", 25));
 	}
 
 	@Test
@@ -29,11 +36,18 @@ public class ParserUtilsTest extends BaseRobolectric {
 		assertEquals(null, ParserUtils.parseLong("abc"));
 		assertEquals(null, ParserUtils.parseLong("10aa"));
 
-		assertEquals(Long.valueOf(25), ParserUtils.parseLong("10aa", 25L));
-
 		assertEquals(Long.valueOf(10), ParserUtils.parseLong("10"));
 		assertEquals(Long.valueOf(10), ParserUtils.parseLong("+10"));
 		assertEquals(Long.valueOf(-10), ParserUtils.parseLong("-10"));
+	}
+
+	@Test
+	public void testParseLong_withDefault() throws Exception {
+		assertEquals(25, ParserUtils.parseLong("10aa", 25L));
+
+		assertEquals(10L, ParserUtils.parseLong("10", 25L));
+		assertEquals(10L, ParserUtils.parseLong("+10", 25L));
+		assertEquals(-10L, ParserUtils.parseLong("-10", 25L));
 	}
 
 	@Test
@@ -42,8 +56,6 @@ public class ParserUtilsTest extends BaseRobolectric {
 		assertEquals(null, ParserUtils.parseFloat(""));
 		assertEquals(null, ParserUtils.parseFloat("abc"));
 		assertEquals(null, ParserUtils.parseFloat("10aa"));
-
-		assertEquals(Float.valueOf(25), ParserUtils.parseFloat("10aa", 25.0f));
 
 		assertEquals(Float.valueOf(10), ParserUtils.parseFloat("10"));
 		assertEquals(Float.valueOf(10), ParserUtils.parseFloat("10.0"));
@@ -54,13 +66,23 @@ public class ParserUtilsTest extends BaseRobolectric {
 	}
 
 	@Test
+	public void testParseFloat_withDefault() throws Exception {
+		assertEquals(25f, ParserUtils.parseFloat("10aa", 25.0f), 0.00001f);
+
+		assertEquals(10f, ParserUtils.parseFloat("10", 25.0f), 0.00001f);
+		assertEquals(10f, ParserUtils.parseFloat("10.0", 25.0f), 0.00001f);
+		assertEquals(10f, ParserUtils.parseFloat("+10", 25.0f), 0.00001f);
+		assertEquals(10f, ParserUtils.parseFloat("+10.0", 25.0f), 0.00001f);
+		assertEquals(-10f, ParserUtils.parseFloat("-10", 25.0f), 0.00001f);
+		assertEquals(-10f, ParserUtils.parseFloat("-10.0", 25.0f), 0.00001f);
+	}
+
+	@Test
 	public void testParseDouble() throws Exception {
 		assertEquals(null, ParserUtils.parseDouble(null));
 		assertEquals(null, ParserUtils.parseDouble(""));
 		assertEquals(null, ParserUtils.parseDouble("abc"));
 		assertEquals(null, ParserUtils.parseDouble("10aa"));
-
-		assertEquals(Double.valueOf(25), ParserUtils.parseDouble("10aa", 25.0));
 
 		assertEquals(Double.valueOf(10), ParserUtils.parseDouble("10"));
 		assertEquals(Double.valueOf(10), ParserUtils.parseDouble("10.0"));
@@ -68,6 +90,18 @@ public class ParserUtilsTest extends BaseRobolectric {
 		assertEquals(Double.valueOf(10), ParserUtils.parseDouble("+10.0"));
 		assertEquals(Double.valueOf(-10), ParserUtils.parseDouble("-10"));
 		assertEquals(Double.valueOf(-10), ParserUtils.parseDouble("-10.0"));
+	}
+
+	@Test
+	public void testParseDouble_withDefault() throws Exception {
+		assertEquals(25, ParserUtils.parseDouble("10aa", 25.0), 0.00001);
+
+		assertEquals(10, ParserUtils.parseDouble("10", 25.0f), 0.00001f);
+		assertEquals(10, ParserUtils.parseDouble("10.0", 25.0f), 0.00001f);
+		assertEquals(10, ParserUtils.parseDouble("+10", 25.0f), 0.00001f);
+		assertEquals(10, ParserUtils.parseDouble("+10.0", 25.0f), 0.00001f);
+		assertEquals(-10, ParserUtils.parseDouble("-10", 25.0f), 0.00001f);
+		assertEquals(-10, ParserUtils.parseDouble("-10.0", 25.0f), 0.00001f);
 	}
 
 	@Test

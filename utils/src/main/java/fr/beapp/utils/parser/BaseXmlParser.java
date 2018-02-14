@@ -148,31 +148,37 @@ public abstract class BaseXmlParser {
 
 	@Nullable
 	protected Integer getAttributeIntegerByName(@Nullable Node parent, @NonNull String name) {
-		return getAttributeIntegerByName(parent, name, null);
+		return ParserUtils.parseInteger(getAttributeByName(parent, name));
 	}
 
-	@Nullable
-	protected Integer getAttributeIntegerByName(@Nullable Node parent, @NonNull String name, @Nullable Integer defaultValue) {
+	protected int getAttributeIntegerByName(@Nullable Node parent, @NonNull String name, int defaultValue) {
 		return ParserUtils.parseInteger(getAttributeByName(parent, name), defaultValue);
 	}
 
 	@Nullable
 	protected Long getAttributeLongByName(@Nullable Node parent, @NonNull String name) {
-		return getAttributeLongByName(parent, name, null);
+		return ParserUtils.parseLong(getAttributeByName(parent, name));
 	}
 
-	@Nullable
-	protected Long getAttributeLongByName(@Nullable Node parent, @NonNull String name, @Nullable Long defaultValue) {
+	protected long getAttributeLongByName(@Nullable Node parent, @NonNull String name, long defaultValue) {
 		return ParserUtils.parseLong(getAttributeByName(parent, name), defaultValue);
 	}
 
 	@Nullable
-	protected Double getAttributeDoubleByName(@Nullable Node parent, @NonNull String name) {
-		return getAttributeDoubleByName(parent, name, null);
+	protected Float getAttributeFloatByName(@Nullable Node parent, @NonNull String name) {
+		return ParserUtils.parseFloat(getAttributeByName(parent, name));
+	}
+
+	protected float getAttributeFloatByName(@Nullable Node parent, @NonNull String name, float defaultValue) {
+		return ParserUtils.parseFloat(getAttributeByName(parent, name), defaultValue);
 	}
 
 	@Nullable
-	protected Double getAttributeDoubleByName(@Nullable Node parent, @NonNull String name, @Nullable Double defaultValue) {
+	protected Double getAttributeDoubleByName(@Nullable Node parent, @NonNull String name) {
+		return ParserUtils.parseDouble(getAttributeByName(parent, name));
+	}
+
+	protected double getAttributeDoubleByName(@Nullable Node parent, @NonNull String name, double defaultValue) {
 		return ParserUtils.parseDouble(getAttributeByName(parent, name), defaultValue);
 	}
 

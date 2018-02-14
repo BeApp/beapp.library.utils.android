@@ -1,11 +1,11 @@
 apply plugin: 'com.android.library'
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 27
     }
     buildTypes {
         release {
@@ -18,24 +18,25 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:25.3.0'
-    compile 'com.android.support:support-annotations:25.3.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.0.2'
+    implementation 'com.android.support:support-annotations:27.0.2'
 
-    compile 'fr.beapp.logger:logger:1.0'
-    provided 'io.reactivex:rxjava:1.2.2'
+    implementation 'fr.beapp.logger:logger:1.1'
+    compileOnly "io.reactivex.rxjava2:rxjava:2.1.9"
 
     // Unit Tests
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.2.1'
-    testCompile "org.robolectric:robolectric:3.3.1"
+    testCompile 'org.mockito:mockito-core:2.10.0'
+    testCompile "org.robolectric:robolectric:3.4.2"
+    testCompile "io.reactivex.rxjava2:rxjava:2.1.9"
 }
 
 ext {
     libraryName = 'Beapp Utils'
     libraryGroupId = 'fr.beapp.utils'
     libraryArtifactId = 'utils'
-    libraryVersion = '1.3'
+    libraryVersion = '1.4'
     libraryPackaging = 'aar'
 
     libraryDescription = 'A library providing multiple utils classes'

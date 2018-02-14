@@ -1,10 +1,9 @@
 package fr.beapp.utils.android.graphics;
 
-import android.content.Context;
 import android.graphics.Color;
-import android.os.Build;
 import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
+import android.support.annotation.FloatRange;
+import android.support.annotation.IntRange;
 import android.support.annotation.Nullable;
 
 import fr.beapp.logger.Logger;
@@ -15,29 +14,24 @@ public class ColorUtils {
 	private ColorUtils() {
 	}
 
+	@IntRange(from = 0, to = 255)
 	public static int alpha(@ColorInt int color) {
 		return color >> 24 & 0xff;
 	}
 
+	@IntRange(from = 0, to = 255)
 	public static int red(@ColorInt int color) {
 		return color >> 16 & 0xff;
 	}
 
+	@IntRange(from = 0, to = 255)
 	public static int green(@ColorInt int color) {
 		return color >> 8 & 0xff;
 	}
 
+	@IntRange(from = 0, to = 255)
 	public static int blue(@ColorInt int color) {
 		return color & 0xff;
-	}
-
-	@ColorInt
-	public static int colorRes(Context context, @ColorRes int colorRes) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-			return context.getColor(colorRes);
-		} else {
-			return context.getResources().getColor(colorRes);
-		}
 	}
 
 	/**
@@ -51,25 +45,26 @@ public class ColorUtils {
 	 * <li>red, blue, green, black, white, gray, cyan, magenta, yellow, lightgray, darkgray, grey, lightgrey, darkgrey, aqua, fuschia, lime, maroon, navy, olive, purple, silver, teal</li>
 	 * </ul>
 	 *
-	 * @param colorString a color representation to parse
-	 * @return a color value corresponding to the given color string ,or 0 if the color couldn't be parsed
+	 * @param colorString  a color representation to parse
+	 * @param defaultColor the default color to use as fallback in case of error during parsing
+	 * @return a color value corresponding to the given color string, or the default value if the color couldn't be parsed
 	 */
 	@ColorInt
-	public static int parseColor(@Nullable String colorString) {
+	public static int parseColor(@Nullable String colorString, @ColorInt int defaultColor) {
 		if (StringUtils.isBlank(colorString))
-			return 0;
+			return defaultColor;
 
 		if (colorString.startsWith("#")) {
 			try {
 				return Color.parseColor(colorString);
-			} catch (IllegalArgumentException ignored) {
-				Logger.warn("Couldn't parse RGB color %s", colorString);
+			} catch (IllegalArgumentException e) {
+				Logger.warn("Couldn't parse RGB color %s: %s", colorString, e.getLocalizedMessage());
 			}
 
 		} else if (colorString.contains(",")) {
 			String[] componentsString = colorString.split(",");
 			if (componentsString.length < 3)
-				return 0;
+				return defaultColor;
 
 			int[] components = new int[componentsString.length];
 			for (int i = 0; i < componentsString.length; i++) {
@@ -83,7 +78,7 @@ public class ColorUtils {
 			}
 		}
 
-		return 0;
+		return defaultColor;
 	}
 
 	/**
@@ -94,7 +89,7 @@ public class ColorUtils {
 	 * @return a color with modified alpha-channel
 	 */
 	@ColorInt
-	public static int alpha(@ColorInt int color, float alpha) {
+	public static int alpha(@ColorInt int color, @FloatRange(from = 0, to = 1) float alpha) {
 		if (color == 0)
 			return 0;
 		return alpha(color, (int) (alpha * 255));
@@ -108,7 +103,7 @@ public class ColorUtils {
 	 * @return a color with modified alpha-channel
 	 */
 	@ColorInt
-	public static int alpha(@ColorInt int color, int alpha) {
+	public static int alpha(@ColorInt int color, @IntRange(from = 0, to = 255) int alpha) {
 		if (color == 0)
 			return 0;
 		return color | (alpha << 24);
@@ -122,7 +117,7 @@ public class ColorUtils {
 	 * @return a brighter color
 	 */
 	@ColorInt
-	public static int colorBrighter(@ColorInt int color, float percent) {
+	public static int colorBrighter(@ColorInt int color, @FloatRange(from = 0, to = 1) float percent) {
 		return changeColor(color, percent);
 	}
 
@@ -134,12 +129,12 @@ public class ColorUtils {
 	 * @return a darker color
 	 */
 	@ColorInt
-	public static int colorDarker(@ColorInt int color, float percent) {
+	public static int colorDarker(@ColorInt int color, @FloatRange(from = 0, to = 1) float percent) {
 		return changeColor(color, -percent);
 	}
 
 	@ColorInt
-	private static int changeColor(@ColorInt int color, float percent) {
+	private static int changeColor(@ColorInt int color, @FloatRange(from = 0, to = 1) float percent) {
 		if (Math.abs(percent) < 0f || Math.abs(percent) > 1f)
 			return color;
 

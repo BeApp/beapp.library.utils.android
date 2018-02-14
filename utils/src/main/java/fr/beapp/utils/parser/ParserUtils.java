@@ -9,9 +9,20 @@ public class ParserUtils {
 	private ParserUtils() {
 	}
 
+	/**
+	 * Safely parses the specified string as a signed decimal integer value. The ASCII characters \u002d ('-') and \u002b ('+') are recognized as the minus and plus signs.
+	 *
+	 * @param value the string representation of an integer value.
+	 * @return the integer object value represented by {@code string} or {@code null} in case of error.
+	 */
 	@Nullable
 	public static Integer parseInteger(@Nullable String value) {
-		return parseInteger(value, null);
+		try {
+			return Integer.parseInt(value);
+		} catch (Exception e) {
+			Logger.warn("Can't parse value %s to Integer", e, value);
+		}
+		return null;
 	}
 
 	/**
@@ -21,8 +32,7 @@ public class ParserUtils {
 	 * @param defaultValue the value to return in case of error.
 	 * @return the primitive integer value represented by {@code string} or {@code defaultValue} in case of error.
 	 */
-	@Nullable
-	public static Integer parseInteger(@Nullable String value, @Nullable Integer defaultValue) {
+	public static int parseInteger(@Nullable String value, int defaultValue) {
 		try {
 			return Integer.parseInt(value);
 		} catch (Exception e) {
@@ -31,9 +41,20 @@ public class ParserUtils {
 		return defaultValue;
 	}
 
+	/**
+	 * Safely parses the specified string as a signed decimal long value. The ASCII characters \u002d ('-') and \u002b ('+') are recognized as the minus and plus signs.
+	 *
+	 * @param value the string representation of a long value.
+	 * @return the long object value represented by {@code string} or {@code null} in case of error.
+	 */
 	@Nullable
 	public static Long parseLong(@Nullable String value) {
-		return parseLong(value, null);
+		try {
+			return Long.parseLong(value);
+		} catch (Exception e) {
+			Logger.warn("Can't parse value %s to Long", e, value);
+		}
+		return null;
 	}
 
 	/**
@@ -43,8 +64,7 @@ public class ParserUtils {
 	 * @param defaultValue the value to return in case of error.
 	 * @return the primitive long value represented by {@code string} or {@code defaultValue} in case of error.
 	 */
-	@Nullable
-	public static Long parseLong(@Nullable String value, @Nullable Long defaultValue) {
+	public static long parseLong(@Nullable String value, long defaultValue) {
 		try {
 			return Long.parseLong(value);
 		} catch (Exception e) {
@@ -53,9 +73,20 @@ public class ParserUtils {
 		return defaultValue;
 	}
 
+	/**
+	 * Safely parses the specified string as a float value.
+	 *
+	 * @param value the string representation of a float value.
+	 * @return the float object value represented by {@code string} or {@code null} in case of error.
+	 */
 	@Nullable
 	public static Float parseFloat(@Nullable String value) {
-		return parseFloat(value, null);
+		try {
+			return Float.parseFloat(value);
+		} catch (Exception e) {
+			Logger.warn("Can't parse value %s to Float", e, value);
+		}
+		return null;
 	}
 
 	/**
@@ -65,8 +96,7 @@ public class ParserUtils {
 	 * @param defaultValue the value to return in case of error.
 	 * @return the primitive float value represented by {@code string} or {@code defaultValue} in case of error.
 	 */
-	@Nullable
-	public static Float parseFloat(@Nullable String value, @Nullable Float defaultValue) {
+	public static float parseFloat(@Nullable String value, float defaultValue) {
 		try {
 			return Float.parseFloat(value);
 		} catch (Exception e) {
@@ -75,9 +105,20 @@ public class ParserUtils {
 		return defaultValue;
 	}
 
+	/**
+	 * Safely parses the specified string as a double value.
+	 *
+	 * @param value the string representation of a double value.
+	 * @return the double object value represented by {@code string} or {@code null} in case of error.
+	 */
 	@Nullable
 	public static Double parseDouble(@Nullable String value) {
-		return parseDouble(value, null);
+		try {
+			return Double.parseDouble(value);
+		} catch (Exception e) {
+			Logger.warn("Can't parse value %s to Double", e, value);
+		}
+		return null;
 	}
 
 	/**
@@ -87,8 +128,7 @@ public class ParserUtils {
 	 * @param defaultValue the value to return in case of error.
 	 * @return the primitive double value represented by {@code string} or {@code defaultValue} in case of error.
 	 */
-	@Nullable
-	public static Double parseDouble(@Nullable String value, @Nullable Double defaultValue) {
+	public static double parseDouble(@Nullable String value, double defaultValue) {
 		try {
 			return Double.parseDouble(value);
 		} catch (Exception e) {
