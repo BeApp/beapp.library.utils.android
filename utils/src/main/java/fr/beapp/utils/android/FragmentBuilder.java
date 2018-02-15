@@ -32,42 +32,57 @@ public class FragmentBuilder<T extends Fragment> {
 		return fragment;
 	}
 
-	public FragmentBuilder<T> putString(@NonNull String key, @Nullable String value) {
-		bundle.putString(key, value);
-		return this;
-	}
-
-	public FragmentBuilder<T> putInt(@NonNull String key, int value) {
-		bundle.putInt(key, value);
-		return this;
-	}
-
-	public FragmentBuilder<T> putLong(@NonNull String key, long value) {
-		bundle.putLong(key, value);
-		return this;
-	}
-
-	public FragmentBuilder<T> putFloat(@NonNull String key, float value) {
-		bundle.putFloat(key, value);
-		return this;
-	}
-
-	public FragmentBuilder<T> putDouble(@NonNull String key, double value) {
-		bundle.putDouble(key, value);
-		return this;
-	}
-
-	public FragmentBuilder<T> putBoolean(@NonNull String key, boolean value) {
+	public FragmentBuilder<T> put(@NonNull String key, boolean value) {
 		bundle.putBoolean(key, value);
 		return this;
 	}
 
-	public FragmentBuilder<T> putSerializable(@NonNull String key, @Nullable Serializable value) {
+	public FragmentBuilder<T> put(@NonNull String key, char value) {
+		bundle.putInt(key, value);
+		return this;
+	}
+
+	public FragmentBuilder<T> put(@NonNull String key, short value) {
+		bundle.putInt(key, value);
+		return this;
+	}
+
+	public FragmentBuilder<T> put(@NonNull String key, byte value) {
+		bundle.putInt(key, value);
+		return this;
+	}
+
+	public FragmentBuilder<T> put(@NonNull String key, int value) {
+		bundle.putInt(key, value);
+		return this;
+	}
+
+	public FragmentBuilder<T> put(@NonNull String key, long value) {
+		bundle.putLong(key, value);
+		return this;
+	}
+
+	public FragmentBuilder<T> put(@NonNull String key, float value) {
+		bundle.putFloat(key, value);
+		return this;
+	}
+
+	public FragmentBuilder<T> put(@NonNull String key, double value) {
+		bundle.putDouble(key, value);
+		return this;
+	}
+
+	public FragmentBuilder<T> put(@NonNull String key, @Nullable String value) {
+		bundle.putString(key, value);
+		return this;
+	}
+
+	public FragmentBuilder<T> put(@NonNull String key, @Nullable Serializable value) {
 		bundle.putSerializable(key, value);
 		return this;
 	}
 
-	public FragmentBuilder<T> putParcelable(@NonNull String key, @Nullable Parcelable value) {
+	public FragmentBuilder<T> put(@NonNull String key, @Nullable Parcelable value) {
 		bundle.putParcelable(key, value);
 		return this;
 	}
