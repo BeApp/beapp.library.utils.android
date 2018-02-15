@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
 import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import fr.beapp.logger.Logger;
@@ -79,6 +80,15 @@ public class ColorUtils {
 		}
 
 		return defaultColor;
+	}
+
+	@NonNull
+	public static String toHexa(@ColorInt int color) {
+		StringBuilder builder = new StringBuilder(Integer.toHexString(color & 0xffffff));
+		while (builder.length() < 6) {
+			builder.insert(0, '0');
+		}
+		return "#" + builder.toString();
 	}
 
 	/**
