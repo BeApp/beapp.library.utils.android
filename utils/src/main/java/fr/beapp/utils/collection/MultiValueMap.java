@@ -65,6 +65,12 @@ public class MultiValueMap<K, V> extends HashMap<K, List<V>> {
 		return this;
 	}
 
+	@Nullable
+	@Override
+	public List<V> put(@NonNull K key, @Nullable List<V> value) {
+		return super.put(key, value);
+	}
+
 	/**
 	 * Remove a value from the list at the given key
 	 *
@@ -77,6 +83,12 @@ public class MultiValueMap<K, V> extends HashMap<K, List<V>> {
 		return values != null && values.remove(value);
 	}
 
+	@Nullable
+	@Override
+	public List<V> get(@Nullable Object key) {
+		return super.get(key);
+	}
+
 	/**
 	 * Retrieve all values associated to a given key
 	 *
@@ -84,8 +96,8 @@ public class MultiValueMap<K, V> extends HashMap<K, List<V>> {
 	 * @param defaultValues default value to return in case there is no value at the given key
 	 * @return all values or <code>defaultValues</code>
 	 */
-	@Nullable
-	public List<V> get(@Nullable K key, @Nullable List<V> defaultValues) {
+	@NonNull
+	public List<V> get(@Nullable K key, @NonNull List<V> defaultValues) {
 		List<V> values = get(key);
 		return values != null ? values : defaultValues;
 	}
@@ -103,6 +115,20 @@ public class MultiValueMap<K, V> extends HashMap<K, List<V>> {
 		if (values == null || index < 0 || index > values.size())
 			return null;
 		return values.get(index);
+	}
+
+	/**
+	 * Retrieve the value at the given index for the given key, if any
+	 *
+	 * @param key          key with which the values is to be associated
+	 * @param index        the index to look for value
+	 * @param defaultValue the default value if there is none at the given key or index
+	 * @return the searched value, or <code>defaultValue</code>
+	 */
+	@NonNull
+	public V get(@Nullable K key, int index, @NonNull V defaultValue) {
+		V value = get(key, index);
+		return value != null ? value : defaultValue;
 	}
 
 	/**
