@@ -52,7 +52,7 @@ public class MultiValueMapTest {
 
 	@Test(expected = IndexOutOfBoundsException.class)
 	public void addWithIndex_outOfBounds() throws Exception {
-		MultiValueMap<String, String> map = MultiValueMap.<String, String>build()
+		MultiValueMap.<String, String>build()
 				.add("k1", "v1.1")
 				.add("k2", "v2.1")
 				.add("k1", "v1.3")
@@ -90,10 +90,20 @@ public class MultiValueMapTest {
 				.add("k1", "v1.3")
 				.add("k1", 1, "v1.2");
 
+		Assert.assertEquals(null, map.get("unknown"));
+		Assert.assertEquals(null, map.get(null));
+	}
+
+	@Test
+	public void get_withDefault() throws Exception {
+		MultiValueMap<String, String> map = MultiValueMap.<String, String>build()
+				.add("k1", "v1.1")
+				.add("k2", "v2.1")
+				.add("k1", "v1.3")
+				.add("k1", 1, "v1.2");
+
 		Assert.assertEquals(Arrays.asList("v1.1", "v1.2", "v1.3"), map.get("k1", Collections.singletonList("fallback")));
 		Assert.assertEquals(Collections.singletonList("fallback"), map.get("unknown", Collections.singletonList("fallback")));
-		Assert.assertEquals(null, map.get("unknown", null));
-		Assert.assertEquals(null, map.get(null, null));
 	}
 
 	@Test
@@ -110,6 +120,22 @@ public class MultiValueMapTest {
 		Assert.assertEquals(null, map.get("k1", 100));
 		Assert.assertEquals(null, map.get("unknown", 0));
 		Assert.assertEquals(null, map.get(null, 0));
+	}
+
+	@Test
+	public void getAtIndex_withDefault() throws Exception {
+		MultiValueMap<String, String> map = MultiValueMap.<String, String>build()
+				.add("k1", "v1.1")
+				.add("k2", "v2.1")
+				.add("k1", "v1.3")
+				.add("k1", 1, "v1.2");
+
+		Assert.assertEquals("v1.2", map.get("k1", 1, "default"));
+		Assert.assertEquals("v2.1", map.get("k2", 0, "default"));
+		Assert.assertEquals("default", map.get("k1", -1, "default"));
+		Assert.assertEquals("default", map.get("k1", 100, "default"));
+		Assert.assertEquals("default", map.get("unknown", 0, "default"));
+		Assert.assertEquals("default", map.get(null, 0, "default"));
 	}
 
 	@Test

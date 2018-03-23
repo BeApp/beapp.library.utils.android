@@ -12,13 +12,17 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.media.ExifInterface;
 import android.support.annotation.ColorInt;
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.ByteArrayOutputStream;
+
 import fr.beapp.logger.Logger;
 import fr.beapp.utils.android.ViewUtils;
+import fr.beapp.utils.io.IOUtils;
 
 public class BitmapUtils {
 
@@ -39,6 +43,30 @@ public class BitmapUtils {
 				bitmap.recycle();
 			}
 		} catch (Exception ignored) {
+		}
+	}
+
+	/**
+	 * Safely convert a Bitmap to a byte array
+	 *
+	 * @param bitmap         the {@link Bitmap} to convert
+	 * @param compressFormat the image format to use for conversion
+	 * @param quality        the quality to use during convertion
+	 * @return a byte array of the converted Bitmap, or an empty byte array if the given bitmap was <code>null</code>
+	 */
+	@NonNull
+	public static byte[] toByteArray(@Nullable Bitmap bitmap, @NonNull Bitmap.CompressFormat compressFormat, @IntRange(from = 0, to = 100) int quality) {
+		if (bitmap == null)
+			return new byte[0];
+
+		ByteArrayOutputStream outputStream = null;
+		try {
+			outputStream = new ByteArrayOutputStream();
+			bitmap.compress(compressFormat, quality, outputStream);
+			BitmapUtils.recycleQuietly(bitmap);
+			return outputStream.toByteArray();
+		} finally {
+			IOUtils.closeQuietly(outputStream);
 		}
 	}
 

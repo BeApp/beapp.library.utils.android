@@ -2,6 +2,7 @@ package fr.beapp.utils.android.graphics;
 
 import android.graphics.Bitmap;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import fr.beapp.utils.BaseRobolectric;
@@ -22,6 +23,19 @@ public class BitmapUtilsTest extends BaseRobolectric {
 		BitmapUtils.recycleQuietly(bitmap);
 
 		BitmapUtils.recycleQuietly(bitmap);
+	}
+
+	@Test
+	public void testByteArray() throws Exception {
+		byte[] resultNull = BitmapUtils.toByteArray(null, Bitmap.CompressFormat.PNG, 100);
+		Assert.assertNotNull(resultNull);
+		Assert.assertEquals(0, resultNull.length);
+
+		Bitmap bitmap = Bitmap.createBitmap(10, 10, Bitmap.Config.RGB_565);
+		byte[] result = BitmapUtils.toByteArray(bitmap, Bitmap.CompressFormat.PNG, 100);
+		Assert.assertNotNull(result);
+		Assert.assertTrue("Resulted byte array was empty", result.length > 0);
+		// As we use Robolectric, we can't check for actual header because it's mocked
 	}
 
 	@Test
