@@ -1,33 +1,16 @@
 package fr.beapp.utils.android.graphics;
 
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
 
 public class DrawableUtils {
 
 	private DrawableUtils() {
-	}
-
-	/**
-	 * Retrieve a drawable. This method handles changes of API.
-	 *
-	 * @param context     the caller context
-	 * @param drawableRes the drawable resource to retrieve
-	 */
-	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public static Drawable getDrawable(Context context, @DrawableRes int drawableRes) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-			return context.getDrawable(drawableRes);
-		} else {
-			return context.getResources().getDrawable(drawableRes);
-		}
 	}
 
 	/**
