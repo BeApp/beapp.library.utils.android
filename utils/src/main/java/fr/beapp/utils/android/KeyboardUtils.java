@@ -5,8 +5,8 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-public class KeyboardUtility {
-	private KeyboardUtility() {
+public class KeyboardUtils {
+	private KeyboardUtils() {
 	}
 
 	/**
