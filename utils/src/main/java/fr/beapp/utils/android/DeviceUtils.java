@@ -93,7 +93,7 @@ public class DeviceUtils {
 	}
 
 	/**
-	 * Inspiredd from <a href="https://stackoverflow.com/a/32856112/815737">https://stackoverflow.com/a/32856112/815737</a>
+	 * Inspired from <a href="https://stackoverflow.com/a/32856112/815737">https://stackoverflow.com/a/32856112/815737</a>
 	 *
 	 * @param context        the calling {@link Context}
 	 * @param permissionName The permission to look for
