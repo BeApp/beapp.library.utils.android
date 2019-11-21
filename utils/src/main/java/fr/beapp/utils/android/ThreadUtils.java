@@ -3,7 +3,7 @@ package fr.beapp.utils.android;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class ThreadUtils {
 

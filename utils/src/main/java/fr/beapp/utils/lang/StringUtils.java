@@ -1,7 +1,7 @@
 package fr.beapp.utils.lang;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.text.Normalizer;
 import java.util.Collection;

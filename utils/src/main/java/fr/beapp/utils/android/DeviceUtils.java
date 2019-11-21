@@ -6,8 +6,8 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Px;
+import androidx.annotation.NonNull;
+import androidx.annotation.Px;
 import android.view.Display;
 import android.view.WindowManager;
 
