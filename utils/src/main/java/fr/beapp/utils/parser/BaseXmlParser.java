@@ -1,8 +1,5 @@
 package fr.beapp.utils.parser;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -22,6 +19,8 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import fr.beapp.logger.Logger;
 import fr.beapp.utils.io.IOUtils;
 import fr.beapp.utils.lang.StringUtils;
@@ -43,6 +42,16 @@ public abstract class BaseXmlParser {
 
 	protected Document parseDocument(@NonNull InputStream inputStream) throws ParserConfigurationException, IOException, SAXException {
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+
+		// Protection against untrusted XML input
+		// https://gist.github.com/AlainODea/1779a7c6a26a5c135280bc9b3b71868f
+		dbFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+		dbFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+		dbFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+		dbFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+		dbFactory.setXIncludeAware(false);
+		dbFactory.setExpandEntityReferences(false);
+
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		return dBuilder.parse(inputStream);
 	}

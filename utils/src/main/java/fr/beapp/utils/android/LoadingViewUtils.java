@@ -44,7 +44,7 @@ public class LoadingViewUtils {
 			public void run() {
 				// Fix refresh state not showing when used with a RecyclerView (See http://stackoverflow.com/a/26692841/815737)
 				ViewParent parent = swipeRefreshLayout.getParent();
-				if (parent != null && parent instanceof View) {
+				if (parent instanceof View) {
 					View parentView = (View) parent;
 					parentView.getMeasuredWidth();
 					swipeRefreshLayout.measure(parentView.getMeasuredWidth(), parentView.getMeasuredHeight());
