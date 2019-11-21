@@ -1,6 +1,6 @@
 package fr.beapp.utils.parser;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import fr.beapp.logger.Logger;
 
