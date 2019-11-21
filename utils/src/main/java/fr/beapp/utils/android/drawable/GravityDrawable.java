@@ -5,13 +5,14 @@ import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import androidx.annotation.IntDef;
-import androidx.annotation.NonNull;
-import androidx.annotation.Px;
 import android.view.Gravity;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
+import androidx.annotation.Px;
 
 /**
  * Display an inner {@link Drawable} with a specific {@link Gravity} within a potentially larger container.
@@ -50,7 +51,11 @@ public class GravityDrawable extends Drawable {
 		drawable.setColorFilter(cf);
 	}
 
+	/**
+	 * @deprecated since SDK 29
+	 */
 	@Override
+	@Deprecated
 	public int getOpacity() {
 		return drawable.getOpacity();
 	}

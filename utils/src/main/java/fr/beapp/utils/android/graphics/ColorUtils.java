@@ -74,7 +74,7 @@ public class ColorUtils {
 
 			if (components.length == 3) {
 				return Color.rgb(components[0], components[1], components[2]);
-			} else if (components.length > 3) {
+			} else {
 				return Color.argb(components[3], components[0], components[1], components[2]);
 			}
 		}

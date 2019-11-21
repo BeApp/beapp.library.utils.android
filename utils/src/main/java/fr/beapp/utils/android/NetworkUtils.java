@@ -3,7 +3,10 @@ package fr.beapp.utils.android;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresPermission;
 
@@ -28,8 +31,17 @@ public class NetworkUtils {
 			return false;
 		}
 
-		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+			final Network network = connectivityManager.getActiveNetwork();
+			final NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
+
+			return capabilities != null
+					&& capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+					&& capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED);
+		} else {
+			NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+			return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+		}
 	}
 
 }
