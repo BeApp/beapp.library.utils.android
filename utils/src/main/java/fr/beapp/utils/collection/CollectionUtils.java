@@ -1,6 +1,6 @@
 package fr.beapp.utils.collection;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.SparseArray;
 
 import java.util.Collection;

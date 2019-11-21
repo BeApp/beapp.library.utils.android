@@ -2,7 +2,7 @@ package fr.beapp.utils.android.graphics;
 
 
 import android.graphics.Rect;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class RectUtils {
 

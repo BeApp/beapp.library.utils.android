@@ -5,8 +5,8 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.v7.graphics.drawable.DrawableWrapper;
+import androidx.annotation.NonNull;
+import androidx.appcompat.graphics.drawable.DrawableWrapper;
 import android.view.animation.LinearInterpolator;
 
 /**
