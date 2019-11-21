@@ -23,6 +23,7 @@ public class ApplicationUtils {
 	 *
 	 * @deprecated Use {@link #getLongVersionCode(Context)} instead
 	 */
+	@Deprecated
 	public static int getVersionCode(@NonNull Context context) {
 		try {
 			return context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;

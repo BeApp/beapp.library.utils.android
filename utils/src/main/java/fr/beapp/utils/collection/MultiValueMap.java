@@ -34,12 +34,14 @@ public class MultiValueMap<K, V> extends HashMap<K, List<V>> {
 	@NonNull
 	public MultiValueMap<K, V> add(@Nullable K key, @Nullable V value) {
 		List<V> values = get(key);
-		if (values == null) {
+		if (values == null && key != null) {
 			values = new LinkedList<>();
 			put(key, values);
 		}
-		values.add(value);
 
+		if (values != null) {
+			values.add(value);
+		}
 		return this;
 	}
 
@@ -56,11 +58,14 @@ public class MultiValueMap<K, V> extends HashMap<K, List<V>> {
 	@NonNull
 	public MultiValueMap<K, V> add(@Nullable K key, int index, @Nullable V value) {
 		List<V> values = get(key);
-		if (values == null) {
+		if (values == null && key != null) {
 			values = new LinkedList<>();
 			put(key, values);
 		}
-		values.add(index, value);
+
+		if (values != null) {
+			values.add(index, value);
+		}
 
 		return this;
 	}
