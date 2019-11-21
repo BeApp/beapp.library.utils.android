@@ -1,6 +1,6 @@
 package fr.beapp.utils.lang;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Patterns;
 
 public class StringValidationUtils {
