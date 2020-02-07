@@ -62,7 +62,7 @@ public class IntentUtils {
 		if (attachments.length > 1) {
 			intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
 		} else {
-			intent = new Intent(Intent.ACTION_SEND);
+			intent = new Intent(Intent.ACTION_SENDTO);
 		}
 
 		intent.setData(Uri.parse("smsto:" + Uri.encode(phoneNumber))); // only SMS apps should handle this
