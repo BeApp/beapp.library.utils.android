@@ -39,7 +39,7 @@ publish {
     userOrg = 'beapp'
     groupId = 'fr.beapp.utils'
     artifactId = 'utils'
-    publishVersion = '1.6'
+    publishVersion = '1.7'
 
     uploadName = "beapp-utils"
     desc = 'A library providing multiple utils classes'
