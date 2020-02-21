@@ -35,15 +35,21 @@ dependencies {
     testImplementation "io.reactivex.rxjava2:rxjava:2.2.14"
 }
 
+ext {
+    libraryVersion = '1.7'
+    libraryGroupId = 'fr.beapp.utils'
+    libraryDescription = 'A library providing multiple utils classes'
+}
+
 publish {
     userOrg = 'beapp'
     repoName = 'beapp-maven-oss'
-    groupId = 'fr.beapp.utils'
+    groupId = libraryGroupId
     artifactId = 'utils'
-    publishVersion = '1.7'
+    publishVersion = libraryVersion
 
     uploadName = "beapp-utils"
-    desc = 'A library providing multiple utils classes'
+    desc = libraryDescription
 
     website = 'https://github.com/beapp/beapp.library.utils.android'
 
@@ -61,7 +67,7 @@ sonarqube {
     properties {
         property 'sonar.host.url', 'https://sonar.beapp.fr'
         property 'sonar.projectKey', "${libraryGroupId}:android"
-        property 'sonar.projectName', "${libraryName} - Android"
+        property 'sonar.projectName', "Beapp Utils - Android"
         property 'sonar.projectDescription', "${libraryDescription}"
         property 'sonar.projectVersion', "${libraryVersion}"
         property 'sonar.sourceEncoding', 'UTF-8'
